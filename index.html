@@ -1,730 +1,161 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>企业新媒体健康度自检表 · 张希</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #1c1a18;
-      --surface: #272420;
-      --surface-alt: #302c27;
-      --border: #3d3832;
-      --text: #e8e2d8;
-      --text-dim: #8a8278;
-      --text-sub: #b0a99e;
-      --amber: #d4a03f;
-      --amber-bright: #e8b84a;
-      --amber-glow: rgba(212, 160, 63, 0.15);
-      --red: #c4624a;
-      --green: #5dae8b;
-      --blue: #5b9bd5;
-      --display: "Noto Serif SC", "SimSun", "STSong", serif;
-      --body: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", system-ui, sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--body);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    body::before {
-      content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: .02;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    .container { max-width: 600px; margin: 0 auto; padding: 0 20px; }
-
-    /* ─── TOP BAR ─── */
-    .top-bar {
-      padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
-      font-size: 13px; color: var(--text-dim); border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 10;
-      background: rgba(28, 26, 24, 0.92); backdrop-filter: blur(12px);
-    }
-    .top-bar .brand { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--text); }
-    .top-bar .brand em { font-style: normal; color: var(--amber); }
-
-    /* ─── HERO ─── */
-    .hero { padding: 40px 0 20px; text-align: center; }
-    .hero-badge {
-      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 3px;
-      color: var(--amber); border: 1px solid var(--amber); padding: 3px 14px; border-radius: 2px;
-      margin-bottom: 20px;
-    }
-    .hero h1 { font-family: var(--display); font-size: clamp(26px, 4vw, 34px); font-weight: 900; line-height: 1.25; margin-bottom: 10px; }
-    .hero .sub { font-size: 14px; color: var(--text-sub); max-width: 380px; margin: 0 auto; }
-
-    /* ─── SCORE METER ─── */
-    .score-meter {
-      position: sticky; top: 53px; z-index: 8;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; padding: 16px 20px; margin-bottom: 28px;
-      display: flex; align-items: center; gap: 16px;
-    }
-    .score-circle {
-      width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      border: 4px solid var(--border);
-      position: relative;
-      transition: border-color .5s, box-shadow .5s;
-    }
-    .score-circle .score-num {
-      font-family: var(--display); font-size: 26px; font-weight: 900;
-      transition: color .5s;
-    }
-    .score-circle.zone-healthy { border-color: var(--green); box-shadow: 0 0 16px rgba(93,174,139,0.2); }
-    .score-circle.zone-healthy .score-num { color: var(--green); }
-    .score-circle.zone-warning { border-color: var(--amber); box-shadow: 0 0 16px rgba(212,160,63,0.2); }
-    .score-circle.zone-warning .score-num { color: var(--amber); }
-    .score-circle.zone-danger { border-color: var(--red); box-shadow: 0 0 16px rgba(196,98,74,0.2); }
-    .score-circle.zone-danger .score-num { color: var(--red); }
-
-    .score-info { flex: 1; }
-    .score-info .score-label { font-size: 12px; color: var(--text-dim); letter-spacing: 2px; margin-bottom: 4px; }
-    .score-info .score-msg { font-family: var(--display); font-size: 16px; font-weight: 700; transition: color .5s; }
-    .score-info .score-bar-wrap { margin-top: 8px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-    .score-info .score-bar { height: 100%; border-radius: 2px; transition: width .4s, background .5s; width: 0%; background: var(--border); }
-
-    /* ─── MODULE ─── */
-    .module { margin-bottom: 32px; }
-    .module-head {
-      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
-      padding-bottom: 10px; border-bottom: 1px solid var(--border);
-    }
-    .module-head .mod-num {
-      width: 32px; height: 32px; border-radius: 4px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--display); font-size: 15px; font-weight: 900;
-      background: var(--amber-glow); color: var(--amber);
-    }
-    .module-head h2 { font-size: 17px; font-weight: 800; }
-    .module-head .mod-weight { font-size: 12px; color: var(--text-dim); margin-left: auto; }
-
-    /* ─── QUESTION ─── */
-    .question {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 6px; padding: 16px 18px; margin-bottom: 10px;
-      transition: border-color .3s;
-    }
-    .question.answered { border-color: rgba(212, 160, 63, 0.25); }
-    .question .q-text { font-size: 14px; color: var(--text); margin-bottom: 10px; line-height: 1.55; }
-    .question .q-hint { font-size: 11px; color: var(--text-dim); margin-bottom: 6px; }
-
-    .options { display: flex; gap: 6px; flex-wrap: wrap; }
-    .opt {
-      flex: 1; min-width: 44px; text-align: center; padding: 8px 4px;
-      border-radius: 4px; font-size: 13px; font-weight: 700;
-      border: 1px solid var(--border); background: var(--surface-alt);
-      color: var(--text-dim); cursor: pointer; transition: all .2s;
-      user-select: none;
-    }
-    .opt:hover { border-color: var(--amber); color: var(--text); }
-    .opt.selected { border-color: var(--amber); background: var(--amber-glow); color: var(--amber); font-weight: 800; }
-    .opt .opt-score { display: block; font-size: 10px; font-weight: 400; opacity: .6; }
-
-    /* ─── RESULT ─── */
-    .result-section { display: none; padding: 28px 0 40px; }
-    .result-section.show { display: block; }
-    .result-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-      padding: 28px 24px; text-align: center;
-    }
-    .result-card .result-badge {
-      display: inline-block; font-size: 14px; font-weight: 900; letter-spacing: 2px;
-      padding: 8px 24px; border-radius: 4px; margin-bottom: 18px;
-    }
-    .result-card.zone-healthy .result-badge { color: var(--green); background: rgba(93,174,139,0.1); border: 1px solid var(--green); }
-    .result-card.zone-warning .result-badge { color: var(--amber); background: var(--amber-glow); border: 1px solid var(--amber); }
-    .result-card.zone-danger  .result-badge { color: var(--red); background: rgba(196,98,74,0.1); border: 1px solid var(--red); }
-    .result-card .result-score {
-      font-family: var(--display); font-size: 72px; font-weight: 900; line-height: 1; margin-bottom: 8px;
-    }
-    .result-card.zone-healthy .result-score { color: var(--green); }
-    .result-card.zone-warning .result-score { color: var(--amber); }
-    .result-card.zone-danger  .result-score { color: var(--red); }
-    .result-card .result-title { font-family: var(--display); font-size: 22px; font-weight: 900; margin-bottom: 12px; }
-    .result-card .result-desc { font-size: 14px; color: var(--text-sub); line-height: 1.7; margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto; }
-    .result-card .result-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; }
-
-    .result-card .result-modules { text-align: left; margin-bottom: 20px; }
-    .result-card .result-modules .rm { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-    .result-card .result-modules .rm .rm-score { font-weight: 700; }
-    .rm-score.good { color: var(--green); }
-    .rm-score.ok { color: var(--amber); }
-    .rm-score.bad { color: var(--red); }
-
-    .btn {
-      display: inline-block; font-family: var(--display); font-size: 18px; font-weight: 900;
-      letter-spacing: 1px; padding: 12px 32px; border-radius: 6px; cursor: pointer;
-      transition: all .25s; text-decoration: none;
-    }
-    .btn-primary { background: var(--amber); color: var(--bg); border: none; }
-    .btn-primary:hover { background: var(--amber-bright); }
-    .btn-outline { background: transparent; color: var(--amber); border: 2px solid var(--amber); }
-    .btn-outline:hover { background: var(--amber-glow); }
-
-    .reset-btn {
-      display: block; text-align: center; margin-top: 20px;
-      font-size: 13px; color: var(--text-dim); cursor: pointer;
-      background: none; border: none; padding: 8px; width: 100%;
-    }
-    .reset-btn:hover { color: var(--text); }
-
-    /* ─── PROGRESS DOTS ─── */
-    .progress-dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 28px; }
-    .progress-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .3s; }
-    .progress-dot.done { background: var(--amber); }
-
-    @media (max-width: 480px) {
-      .hero { padding: 28px 0 16px; }
-      .score-circle { width: 52px; height: 52px; }
-      .score-circle .score-num { font-size: 22px; }
-      .options { gap: 4px; }
-      .opt { font-size: 12px; padding: 7px 2px; }
-      .result-card .result-score { font-size: 56px; }
-      .container { padding: 0 14px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>企业新媒体断点自检表 · 利明智耀</title>
+<style>
+:root{--bg:#1c1a18;--surface:#28241f;--line:#413a32;--text:#eee7dc;--muted:#a89f93;--gold:#d4a03f;--red:#d36b53;--green:#62b08e;--blue:#6aa4d8}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
+h1,h2,h3,p,.status,.summary{text-wrap:balance;line-break:strict}
+.wrap{max-width:720px;margin:auto;padding:0 22px 72px}
+.top{padding:16px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font-size:13px}
+.top b{color:var(--text)}
+.hero{text-align:center;padding:48px 0 34px}
+.badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:4px 14px;font-size:11px;letter-spacing:.18em;margin-bottom:18px}
+.hero h1{font-family:"Songti SC","STSong",serif;font-size:42px;line-height:1.16;margin-bottom:14px}
+.hero p{color:var(--muted);max-width:560px;margin:auto;font-size:15px}
+.rule{background:#211e1a;border:1px solid var(--line);padding:18px 20px;margin-bottom:28px}
+.rule strong{color:var(--gold)}.rule p{font-size:13px;color:var(--muted);margin-top:6px}
+.legend{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap}
+.legend span{font-size:12px;border:1px solid var(--line);padding:5px 9px}
+.module{margin-bottom:26px}
+.module-head{display:flex;align-items:center;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.num{width:34px;height:34px;display:grid;place-items:center;background:rgba(212,160,63,.13);color:var(--gold);font-weight:900}
+.module h2{font-size:20px}.module-head small{margin-left:auto;color:var(--muted)}
+.question{background:var(--surface);border:1px solid var(--line);padding:16px;margin-bottom:9px}
+.q{font-size:14px;margin-bottom:12px}
+.options{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.option{border:1px solid var(--line);background:#312c26;color:var(--muted);padding:9px 5px;text-align:center;font-size:12px;cursor:pointer}
+.option:hover{border-color:var(--gold);color:var(--text)}
+.option.active[data-value="0"]{border-color:var(--green);color:var(--green);background:rgba(98,176,142,.1)}
+.option.active[data-value="1"]{border-color:var(--gold);color:var(--gold);background:rgba(212,160,63,.1)}
+.option.active[data-value="2"]{border-color:var(--red);color:var(--red);background:rgba(211,107,83,.1)}
+.progress{position:sticky;bottom:12px;background:rgba(33,30,26,.96);border:1px solid var(--line);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;z-index:4}
+.progress span{font-size:13px;color:var(--muted)}.progress b{color:var(--gold)}
+button{background:var(--gold);border:0;color:#1c1a18;font-weight:900;padding:10px 18px;cursor:pointer}
+.result{display:none;margin-top:34px;border:1px solid var(--line);background:#211e1a;padding:25px}
+.result.show{display:block}.result h2{font-family:"Songti SC","STSong",serif;font-size:28px;margin-bottom:8px}
+.result .summary{color:var(--muted);font-size:14px;margin-bottom:18px}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.status{border:1px solid var(--line);padding:14px}.status b{display:block;margin-bottom:5px}.status span{font-size:13px;color:var(--muted)}
+.status.good{border-left:5px solid var(--green)}.status.warn{border-left:5px solid var(--gold)}.status.bad{border-left:5px solid var(--red)}
+.priority{margin-top:18px;padding:16px;background:rgba(212,160,63,.08);border-left:5px solid var(--gold)}
+.cta{margin-top:28px;background:#263d55;padding:25px;text-align:center}
+.cta h3{font-size:22px;margin-bottom:8px}.cta p{font-size:14px;color:#cad8e4}.cta strong{color:#fff}
+.note{font-size:12px;color:var(--muted);margin-top:16px;text-align:center}
+@media(max-width:560px){.hero h1{font-size:34px}.options{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr}.progress{bottom:6px}}
+</style>
 </head>
 <body>
+<div class="wrap">
+  <div class="top"><b>张希 · 利明智耀</b><span>企业新媒体经营系统</span></div>
 
-<nav class="top-bar">
-  <div class="brand">张希 <em>·</em> 利明智耀</div>
-  <div>健康度自检表</div>
-</nav>
+  <header class="hero">
+    <div class="badge">DIAGNOSTIC TOOL</div>
+    <h1>企业新媒体<br>断点自检表</h1>
+    <p>不测一个看似精确的总分，只根据事实判断：你当前最值得先处理的断点在哪里。</p>
+  </header>
 
-<div class="container">
-
-  <!-- ═══ HERO ═══ -->
-  <section class="hero">
-    <div class="hero-badge">DIAGNOSTIC TOOL</div>
-    <h1>企业新媒体<br>健康度自检表</h1>
-    <p class="sub">满分100分。诚实打分，看看你的公司新媒体预算有多少在打水漂。</p>
+  <section class="rule">
+    <strong>请老板、新媒体负责人和销售负责人分别填写。</strong>
+    <p>“已形成”必须有文件、流程、数据或稳定动作可以证明；不能举证，就不要凭感觉打勾。</p>
+    <div class="legend"><span>已形成：稳定且可举证</span><span>部分形成：有人做但不稳定</span><span>尚未形成：没有标准或无法举证</span></div>
   </section>
 
-  <!-- ═══ SCORE METER ═══ -->
-  <div class="score-meter" id="scoreMeter">
-    <div class="score-circle" id="scoreCircle">
-      <span class="score-num" id="scoreNum">0</span>
-    </div>
-    <div class="score-info">
-      <div class="score-label">实时得分</div>
-      <div class="score-msg" id="scoreMsg">开始自检，逐项打分</div>
-      <div class="score-bar-wrap"><div class="score-bar" id="scoreBar"></div></div>
-    </div>
-  </div>
+  <form id="checkForm">
+    <section class="module" data-name="经营任务">
+      <div class="module-head"><div class="num">01</div><h2>经营任务</h2><small>为什么做</small></div>
+      <div class="question"><div class="q">本阶段新媒体优先服务品牌、获客、销售支持或客户经营中的哪一项，已经明确。</div><div class="options"></div></div>
+      <div class="question"><div class="q">目标客户、重点产品与业务优先级已经明确。</div><div class="options"></div></div>
+      <div class="question"><div class="q">老板、业务负责人和新媒体团队对目标的理解基本一致。</div><div class="options"></div></div>
+      <div class="question"><div class="q">团队指标与当前经营任务相关，而不只是播放量和更新数量。</div><div class="options"></div></div>
+    </section>
 
-  <!-- ═══ PROGRESS ═══ -->
-  <div class="progress-dots" id="progressDots">
-    <div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot"></div><div class="progress-dot"></div>
-  </div>
+    <section class="module" data-name="信任表达">
+      <div class="module-head"><div class="num">02</div><h2>信任表达</h2><small>为什么选你</small></div>
+      <div class="question"><div class="q">客户能从主页和核心内容中看懂企业是谁、服务谁、解决什么问题。</div><div class="options"></div></div>
+      <div class="question"><div class="q">内容持续回应客户选择前最关心的问题，而不只是企业新闻和产品介绍。</div><div class="options"></div></div>
+      <div class="question"><div class="q">企业有可公开使用的案例、过程、专业判断或客户证据。</div><div class="options"></div></div>
+      <div class="question"><div class="q">不同账号和内容栏目分别承担什么信任任务，已经明确。</div><div class="options"></div></div>
+    </section>
 
-  <!-- ═══ MODULES ═══ -->
-  <form id="quizForm">
+    <section class="module" data-name="内容机制">
+      <div class="module-head"><div class="num">03</div><h2>内容机制</h2><small>如何持续生产</small></div>
+      <div class="question"><div class="q">选题来源于客户问题、销售反馈、项目过程和企业专业知识。</div><div class="options"></div></div>
+      <div class="question"><div class="q">谁提供信息、谁策划、谁生产、谁审核已经明确。</div><div class="options"></div></div>
+      <div class="question"><div class="q">团队有固定排期和基本质量标准，不完全依赖临时灵感。</div><div class="options"></div></div>
+      <div class="question"><div class="q">发布后的内容会被记录、复盘并沉淀为可复用资产。</div><div class="options"></div></div>
+    </section>
 
-    <!-- MODULE 1: 内容生产 -->
-    <div class="module" data-module="0">
-      <div class="module-head">
-        <div class="mod-num">1</div>
-        <h2>内容生产</h2>
-        <div class="mod-weight">25分</div>
-      </div>
-
-      <div class="question" data-q="0">
-        <div class="q-text">你的账号有清晰的选题SOP吗？——选题有计划、有排期，不是老板想起来才拍一条。</div>
-        <div class="q-hint">0 = 完全随机发 / 5 = 有月度选题日历和SOP</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 0, 0)">0<span class="opt-score">无</span></label>
-          <label class="opt" onclick="selectOpt(this, 0, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 0, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 0, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 0, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 0, 5)">5<span class="opt-score">完善</span></label>
-        </div>
-      </div>
-
-      <div class="question" data-q="1">
-        <div class="q-text">每条内容的"人设印记"清晰吗？——观众看完知道你是谁、你帮谁、你能解决什么问题。</div>
-        <div class="q-hint">0 = 没有辨识度 / 5 = 人设鲜明，观众一眼认出</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 1, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 1, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 1, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 1, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 1, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 1, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="2">
-        <div class="q-text">有一条"置顶内容"能准确告诉新访客：你是谁、你帮谁、怎么找你？</div>
-        <div class="q-hint">0 = 没有置顶 / 5 = 有清晰的欢迎页/置顶视频</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 2, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 2, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 2, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 2, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 2, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 2, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="3">
-        <div class="q-text">内容发布频率稳定吗？——每周至少保持固定频次，不"三天打鱼两天晒网"。</div>
-        <div class="q-hint">0 = 不规律 / 5 = 每周3条以上且节奏稳定</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 3, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 3, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 3, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 3, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 3, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 3, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="4">
-        <div class="q-text">每条内容末尾有明确的"行动引导"吗？——告诉观众下一步该做什么（关注/私信/评论）。</div>
-        <div class="q-hint">0 = 没有CTA / 5 = 每一条都有清晰且有效的CTA</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 4, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 4, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 4, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 4, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 4, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 4, 5)">5</label>
-        </div>
-      </div>
-    </div>
-
-    <!-- MODULE 2: 私域承接 -->
-    <div class="module" data-module="1">
-      <div class="module-head">
-        <div class="mod-num">2</div>
-        <h2>私域承接</h2>
-        <div class="mod-weight">25分</div>
-      </div>
-
-      <div class="question" data-q="5">
-        <div class="q-text">加微信后5分钟内，有没有自动发送"欢迎信息+价值主张"？</div>
-        <div class="q-hint">0 = 加了不说话 / 5 = 有完善的自动欢迎流程</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 5, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 5, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 5, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 5, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 5, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 5, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="6">
-        <div class="q-text">72小时内是否有节奏地推进关系——从认识、到互动、到首次价值交付？</div>
-        <div class="q-hint">0 = 加了就不管了 / 5 = 有完整的72小时承接SOP</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 6, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 6, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 6, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 6, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 6, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 6, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="7">
-        <div class="q-text">朋友圈有"培育剧本"吗？——不是随便转发，而是有节奏地展示专业度、案例、客户证言。</div>
-        <div class="q-hint">0 = 朋友圈随便发 / 5 = 有朋友圈内容日历和剧本</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 7, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 7, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 7, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 7, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 7, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 7, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="8">
-        <div class="q-text">客户问完价没下文之后，有跟进流程吗？</div>
-        <div class="q-hint">0 = 不回就放弃 / 5 = 有标准化的二次触达流程</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 8, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 8, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 8, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 8, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 8, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 8, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="9">
-        <div class="q-text">老客户有转介绍机制吗？——满意的客户知道推荐你能得到什么。</div>
-        <div class="q-hint">0 = 没有转介绍 / 5 = 有成熟的转介绍激励机制</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 9, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 9, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 9, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 9, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 9, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 9, 5)">5</label>
-        </div>
-      </div>
-    </div>
-
-    <!-- MODULE 3: 投流获客 -->
-    <div class="module" data-module="2">
-      <div class="module-head">
-        <div class="mod-num">3</div>
-        <h2>投流获客</h2>
-        <div class="mod-weight">25分</div>
-      </div>
-
-      <div class="question" data-q="10">
-        <div class="q-text">投流之前，有没有先用自然流量验证过"哪类内容能带来询盘"？</div>
-        <div class="q-hint">0 = 没验证直接投 / 5 = 有数据验证的投流策略</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 10, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 10, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 10, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 10, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 10, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 10, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="11">
-        <div class="q-text">每条投放素材都对应一个明确的转化路径吗？——从看到广告到加上微信，路径是通的。</div>
-        <div class="q-hint">0 = 投了不知道去哪 / 5 = 每个素材都有清晰的转化链路</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 11, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 11, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 11, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 11, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 11, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 11, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="12">
-        <div class="q-text">你能说出每条线索的获客成本吗？——不是大概，是能算到个位数的数字。</div>
-        <div class="q-hint">0 = 不知道 / 5 = 有精确的获客成本追踪</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 12, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 12, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 12, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 12, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 12, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 12, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="13">
-        <div class="q-text">投流素材多久迭代一次？——有A/B测试机制吗？</div>
-        <div class="q-hint">0 = 一条素材跑到底 / 5 = 每周迭代，有系统化的A/B测试</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 13, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 13, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 13, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 13, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 13, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 13, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="14">
-        <div class="q-text">搜索排名：潜在客户搜你的行业关键词，你能排在第几位？</div>
-        <div class="q-hint">0 = 搜不到 / 5 = 前三位</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 14, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 14, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 14, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 14, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 14, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 14, 5)">5</label>
-        </div>
-      </div>
-    </div>
-
-    <!-- MODULE 4: 组织能力 -->
-    <div class="module" data-module="3">
-      <div class="module-head">
-        <div class="mod-num">4</div>
-        <h2>组织能力</h2>
-        <div class="mod-weight">25分</div>
-      </div>
-
-      <div class="question" data-q="15">
-        <div class="q-text">团队有专人负责新媒体吗？——不是"行政兼着发一下"。</div>
-        <div class="q-hint">0 = 没人负责 / 5 = 有专职团队且岗位清晰</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 15, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 15, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 15, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 15, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 15, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 15, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="16">
-        <div class="q-text">操盘手/负责人有能力独立完成"选题→拍摄→发布→复盘"闭环吗？</div>
-        <div class="q-hint">0 = 完全依赖老板 / 5 = 能力完整，可独立运转</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 16, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 16, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 16, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 16, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 16, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 16, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="17">
-        <div class="q-text">有内容素材库吗？——过往内容是否归档、可检索、可复用？</div>
-        <div class="q-hint">0 = 散落在手机相册 / 5 = 有结构化的素材库</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 17, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 17, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 17, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 17, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 17, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 17, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="18">
-        <div class="q-text">每周有固定复盘会议吗？——看数据、找问题、定下周计划。</div>
-        <div class="q-hint">0 = 不做复盘 / 5 = 每周固定复盘+数据追踪</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 18, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 18, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 18, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 18, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 18, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 18, 5)">5</label>
-        </div>
-      </div>
-
-      <div class="question" data-q="19">
-        <div class="q-text">老板本人愿意出镜或参与内容吗？——新媒体不是"交给下面人"就能做好的。</div>
-        <div class="q-hint">0 = 老板不管 / 5 = 老板亲自参与且持续输出</div>
-        <div class="options">
-          <label class="opt" onclick="selectOpt(this, 19, 0)">0</label>
-          <label class="opt" onclick="selectOpt(this, 19, 1)">1</label>
-          <label class="opt" onclick="selectOpt(this, 19, 2)">2</label>
-          <label class="opt" onclick="selectOpt(this, 19, 3)">3</label>
-          <label class="opt" onclick="selectOpt(this, 19, 4)">4</label>
-          <label class="opt" onclick="selectOpt(this, 19, 5)">5</label>
-        </div>
-      </div>
-    </div>
-
+    <section class="module" data-name="线索承接">
+      <div class="module-head"><div class="num">04</div><h2>线索承接</h2><small>客户来了怎么办</small></div>
+      <div class="question"><div class="q">客户从哪里来、看过什么、咨询什么能够被记录。</div><div class="options"></div></div>
+      <div class="question"><div class="q">每条线索都有明确责任人和下一步动作。</div><div class="options"></div></div>
+      <div class="question"><div class="q">新媒体与销售之间存在固定的信息交接方式。</div><div class="options"></div></div>
+      <div class="question"><div class="q">团队会定期复盘高频问题、未推进原因和内容反馈。</div><div class="options"></div></div>
+    </section>
   </form>
 
-  <!-- ═══ RESULT ═══ -->
-  <div class="result-section" id="resultSection">
-    <div class="result-card" id="resultCard">
-      <div class="result-badge" id="resultBadge"></div>
-      <div class="result-score" id="resultScore">0</div>
-      <div class="result-title" id="resultTitle"></div>
-      <div class="result-desc" id="resultDesc"></div>
-      <div class="result-modules" id="resultModules"></div>
-      <div class="result-actions">
-        <button class="btn btn-primary" onclick="copyKeyword('【自检】')">私信回复【自检】获取完整诊断指南</button>
-        <button class="btn btn-outline" onclick="scrollToTop()">重新检测</button>
-      </div>
-      <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--border);display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-        <a href="panorama.html" style="color:var(--text-dim);font-size:12px;text-decoration:none;transition:color .3s;" onmouseenter="this.style.color='var(--blue)'" onmouseleave="this.style.color='var(--text-dim)'">全景图 →</a>
-        <a href="sop-handbook.html" style="color:var(--text-dim);font-size:12px;text-decoration:none;transition:color .3s;" onmouseenter="this.style.color='var(--green)'" onmouseleave="this.style.color='var(--text-dim)'">SOP手册 →</a>
-      </div>
-    </div>
+  <div class="progress"><span>已完成 <b id="done">0</b>/16 项</span><button type="button" id="resultBtn">查看断点</button></div>
+
+  <section class="result" id="result">
+    <h2>你的断点分布</h2>
+    <p class="summary">这里不做总分排名。请优先看“尚未形成”最多的维度，再结合当前经营任务决定从哪里启动。</p>
+    <div class="result-grid" id="resultGrid"></div>
+    <div class="priority" id="priority"></div>
+  </section>
+
+  <section class="cta">
+    <h3>需要继续判断优先级？</h3>
+    <p>回复<strong>【自检】</strong>，并告诉我哪个维度“尚未形成”最多，以及最近一次因此出现的具体问题。</p>
+  </section>
+    <div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:18px;font-size:13px;">
+    <a href="panorama.html" style="color:var(--blue);text-decoration:none;">查看3个月共建全景图 →</a>
+    <a href="sop-handbook.html" style="color:var(--green);text-decoration:none;">查看线索承接规范 →</a>
   </div>
-
+  <p class="note">近20家企业诊断与项目观察 · 先看事实，再下判断</p>
 </div>
-
 <script>
-  const TOTAL_QUESTIONS = 20;
-  const MAX_SCORE = 100; // 20 questions × 5 points
-  let scores = new Array(TOTAL_QUESTIONS).fill(-1); // -1 = unanswered
-
-  function selectOpt(el, qIndex, value) {
-    scores[qIndex] = value;
-
-    // Update visual selection
-    const questionEl = el.closest('.question');
-    questionEl.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-    questionEl.classList.add('answered');
-
-    updateScore();
-    checkAllAnswered();
-  }
-
-  function updateScore() {
-    const answered = scores.filter(s => s >= 0);
-    const total = answered.reduce((a, b) => a + b, 0);
-    const maxAnswered = answered.length * 5;
-    const pct = maxAnswered > 0 ? (total / MAX_SCORE) * 100 : 0;
-
-    // Update score circle
-    const circle = document.getElementById('scoreCircle');
-    const numEl = document.getElementById('scoreNum');
-    const msgEl = document.getElementById('scoreMsg');
-    const barEl = document.getElementById('scoreBar');
-
-    circle.className = 'score-circle';
-    numEl.textContent = total;
-    barEl.style.width = pct + '%';
-
-    let zoneMsg = '';
-    if (total >= 80) {
-      circle.classList.add('zone-healthy');
-      barEl.style.background = 'var(--green)';
-      zoneMsg = '体系健康，继续保持';
-    } else if (total >= 60) {
-      circle.classList.add('zone-warning');
-      barEl.style.background = 'var(--amber)';
-      zoneMsg = '有基础但漏洞多，需要系统补丁';
-    } else if (total >= 40) {
-      circle.classList.add('zone-warning');
-      barEl.style.background = 'var(--amber)';
-      zoneMsg = '红色预警，正在持续失血';
-    } else if (total > 0) {
-      circle.classList.add('zone-danger');
-      barEl.style.background = 'var(--red)';
-      zoneMsg = '危急，建议停掉无效预算';
-    }
-
-    if (answered.length === 0) {
-      msgEl.textContent = '开始自检，逐项打分';
-      barEl.style.background = 'var(--border)';
-    } else {
-      msgEl.textContent = zoneMsg;
-    }
-  }
-
-  function checkAllAnswered() {
-    const allDone = scores.every(s => s >= 0);
-    if (allDone) {
-      showResult();
-    }
-    updateProgress();
-  }
-
-  function updateProgress() {
-    const answeredCount = scores.filter(s => s >= 0).length;
-    const modulesDone = [0, 5, 10, 15].filter(start =>
-      scores.slice(start, start + 5).every(s => s >= 0)
-    ).length;
-
-    const dots = document.querySelectorAll('#progressDots .progress-dot');
-    dots.forEach((dot, i) => {
-      if (i < modulesDone) dot.classList.add('done');
-      else dot.classList.remove('done');
+var questions = Array.from(document.querySelectorAll(".question"));
+questions.forEach(function(q){
+  var box=q.querySelector(".options");
+  [["已形成","0"],["部分形成","1"],["尚未形成","2"]].forEach(function(item){
+    var el=document.createElement("div");
+    el.className="option"; el.textContent=item[0]; el.dataset.value=item[1];
+    el.addEventListener("click",function(){
+      box.querySelectorAll(".option").forEach(function(x){x.classList.remove("active")});
+      el.classList.add("active"); q.dataset.value=item[1]; update();
     });
-  }
-
-  function showResult() {
-    const total = scores.reduce((a, b) => a + b, 0);
-    const section = document.getElementById('resultSection');
-    const card = document.getElementById('resultCard');
-    const badge = document.getElementById('resultBadge');
-    const scoreEl = document.getElementById('resultScore');
-    const title = document.getElementById('resultTitle');
-    const desc = document.getElementById('resultDesc');
-    const modulesEl = document.getElementById('resultModules');
-
-    section.classList.add('show');
-    card.className = 'result-card';
-    scoreEl.textContent = total;
-
-    // Module scores
-    const modNames = ['内容生产', '私域承接', '投流获客', '组织能力'];
-    const modScores = [];
-    for (let m = 0; m < 4; m++) {
-      const ms = scores.slice(m * 5, m * 5 + 5).reduce((a, b) => a + b, 0);
-      modScores.push(ms);
-    }
-
-    let zoneClass, badgeText, titleText, descText;
-    if (total >= 80) {
-      zoneClass = 'zone-healthy';
-      badgeText = '体系健康';
-      titleText = '恭喜，你的新媒体体系很健康';
-      descText = '四个维度表现均衡。下一步不是"补漏洞"，而是"拉标杆"——把最佳实践系统化，变成可复制的增长引擎。';
-    } else if (total >= 60) {
-      zoneClass = 'zone-warning';
-      badgeText = '有基础但漏洞多';
-      titleText = '方向对了，但缺系统';
-      descText = '有内容意识但执行断断续续，有私域但没有标准化流程。需要系统性补丁，而不是单点优化。';
-    } else if (total >= 40) {
-      zoneClass = 'zone-warning';
-      badgeText = '红色预警';
-      titleText = '你的新媒体正在持续失血';
-      descText = '预算在花但效果看不到，团队在做但没有方法论。建议尽快做一次系统诊断，找到最大的失血点先止血。';
-    } else {
-      zoneClass = 'zone-danger';
-      badgeText = '危急';
-      titleText = '立即停掉所有无效动作';
-      descText = '你现在的新媒体投入大概率在打水漂。建议尽快停掉无效预算，找专业顾问做一次完整的系统诊断，从零重建获客体系。';
-    }
-
-    card.classList.add(zoneClass);
-    badge.textContent = badgeText;
-    title.textContent = titleText;
-    desc.textContent = descText;
-
-    // Module breakdown
-    modulesEl.innerHTML = modNames.map((name, i) => {
-      const s = modScores[i];
-      let cls = s >= 20 ? 'good' : s >= 15 ? 'ok' : 'bad';
-      return `<div class="rm"><span>${name}</span><span class="rm-score ${cls}">${s} / 25</span></div>`;
-    }).join('');
-
-    // Scroll to result
-    setTimeout(() => {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 200);
-
-    // Update meter
-    updateScore();
-  }
-
-  function scrollToTop() {
-    scores = new Array(TOTAL_QUESTIONS).fill(-1);
-    document.querySelectorAll('.opt.selected').forEach(o => o.classList.remove('selected'));
-    document.querySelectorAll('.question.answered').forEach(q => q.classList.remove('answered'));
-    document.getElementById('resultSection').classList.remove('show');
-    document.getElementById('resultCard').className = 'result-card';
-    updateScore();
-    updateProgress();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function copyKeyword(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      const toast = document.createElement('div');
-      toast.style.cssText = `
-        position:fixed;bottom:32px;left:50%;transform:translateX(-50%);z-index:100;
-        background:var(--amber);color:var(--bg);font-size:14px;font-weight:700;
-        padding:10px 24px;border-radius:6px;transition:all .35s;
-      `;
-      toast.textContent = `「${text}」已复制，去微信私信粘贴发送`;
-      document.body.appendChild(toast);
-      setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2400);
-    });
-  }
-
-  // Initialize
-  updateScore();
-  updateProgress();
+    box.appendChild(el);
+  });
+});
+function update(){
+  document.getElementById("done").textContent=document.querySelectorAll(".question[data-value]").length;
+}
+document.getElementById("resultBtn").addEventListener("click",function(){
+  if(document.querySelectorAll(".question[data-value]").length<16){alert("请先完成16项事实检查。");return}
+  var data=[];
+  document.querySelectorAll(".module").forEach(function(m){
+    var vals=Array.from(m.querySelectorAll(".question")).map(function(q){return Number(q.dataset.value)});
+    data.push({name:m.dataset.name,missing:vals.filter(function(v){return v===2}).length,partial:vals.filter(function(v){return v===1}).length});
+  });
+  var grid=document.getElementById("resultGrid"); grid.innerHTML="";
+  data.forEach(function(d){
+    var level=d.missing<=1?"good":d.missing===2?"warn":"bad";
+    var msg=d.missing<=1?"已有基础，继续验证和优化":d.missing===2?"存在明显断点，需要判断优先级":"可能正在持续消耗资源，应先补基础";
+    var box=document.createElement("div");box.className="status "+level;
+    box.innerHTML="<b>"+d.name+"｜尚未形成 "+d.missing+" 项</b><span>"+msg+"；部分形成 "+d.partial+" 项</span>";
+    grid.appendChild(box);
+  });
+  var max=Math.max.apply(null,data.map(function(d){return d.missing}));
+  var top=data.filter(function(d){return d.missing===max}).map(function(d){return d.name}).join("、");
+  document.getElementById("priority").innerHTML="<b>优先关注：</b>"+top+"。这只是断点分布，不等于最终优先级；还要结合业务周期、资源和当前目标判断。";
+  document.getElementById("result").classList.add("show");
+  document.getElementById("result").scrollIntoView({behavior:"smooth"});
+});
 </script>
-
 </body>
 </html>
