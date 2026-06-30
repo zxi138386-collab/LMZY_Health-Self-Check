@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>私域获客系统 · 三张底牌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1c22;
+      --surface: #24262e;
+      --surface-alt: #2a2d36;
+      --border: #353845;
+      --text: #e4e0d8;
+      --text-dim: #8b8d94;
+      --text-sub: #b0b2b8;
+      --amber: #d4a03f;
+      --amber-glow: rgba(212, 160, 63, 0.18);
+      --blue: #5b9bd5;
+      --blue-glow: rgba(91, 155, 213, 0.15);
+      --green: #5dae8b;
+      --green-glow: rgba(93, 174, 139, 0.15);
+      --red: #c4624a;
+      --scan-line: rgba(228, 224, 216, 0.06);
+      --display: "Noto Serif SC", "SimSun", "STSong", serif;
+      --body: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: "";
+      position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; color: var(--text-dim);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(26, 28, 34, 0.92);
+      backdrop-filter: blur(12px);
+    }
+    .top-bar .brand {
+      font-family: var(--display);
+      font-weight: 700; font-size: 15px; color: var(--text);
+      letter-spacing: .5px;
+    }
+    .top-bar .brand span { color: var(--amber); }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 48px 0 36px;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      color: var(--amber); text-transform: uppercase;
+      border: 1px solid var(--amber);
+      padding: 4px 12px; border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(28px, 5vw, 38px);
+      font-weight: 900; line-height: 1.22;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--amber);
+      position: relative;
+    }
+    .hero h1 em::after {
+      content: "";
+      position: absolute; bottom: 2px; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      opacity: .5;
+    }
+    .hero-desc {
+      font-size: 16px; color: var(--text-sub);
+      max-width: 480px; line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* ─── METRICS STRIP ─── */
+    .metrics {
+      display: flex; gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 6px; overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .metrics .metric {
+      flex: 1; text-align: center;
+      padding: 18px 10px;
+      background: var(--surface);
+      position: relative;
+    }
+    .metrics .metric + .metric { border-left: 1px solid var(--border); }
+    .metric .num {
+      font-family: var(--display);
+      font-size: 32px; font-weight: 900;
+      color: var(--amber); line-height: 1;
+    }
+    .metric .label {
+      font-size: 12px; color: var(--text-dim);
+      margin-top: 6px; letter-spacing: .5px;
+    }
+
+    /* ─── CONNECTOR LINE ─── */
+    .connector {
+      display: flex; align-items: center; justify-content: center;
+      padding: 8px 0 28px;
+    }
+    .connector .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--amber); box-shadow: 0 0 8px var(--amber-glow);
+    }
+    .connector .line {
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, var(--amber), var(--border));
+    }
+    .connector .line.reverse {
+      background: linear-gradient(90deg, var(--border), var(--amber));
+    }
+
+    /* ─── SECTION HEADER ─── */
+    .section-head {
+      margin-bottom: 20px;
+    }
+    .section-head .step {
+      font-size: 12px; font-weight: 700; letter-spacing: 3px;
+      color: var(--text-dim); margin-bottom: 6px;
+    }
+    .section-head h2 {
+      font-family: var(--display);
+      font-size: 24px; font-weight: 900;
+      letter-spacing: .5px;
+    }
+
+    /* ─── TOOL CARD ─── */
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 28px 24px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .tool-card::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .tool-card.card-scanner::before {
+      background: linear-gradient(90deg, var(--amber), #c4822a);
+    }
+    .tool-card.card-blueprint::before {
+      background: linear-gradient(90deg, var(--blue), #3d7ec5);
+    }
+    .tool-card.card-manual::before {
+      background: linear-gradient(90deg, var(--green), #3d8a68);
+    }
+    .tool-card:hover {
+      border-color: var(--text-dim);
+    }
+
+    .tool-card .card-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 2px; padding: 3px 10px;
+      border-radius: 2px; margin-bottom: 14px;
+    }
+    .card-scanner .card-tag {
+      color: var(--amber); background: var(--amber-glow);
+    }
+    .card-blueprint .card-tag {
+      color: var(--blue); background: var(--blue-glow);
+    }
+    .card-manual .card-tag {
+      color: var(--green); background: var(--green-glow);
+    }
+
+    .tool-card h3 {
+      font-family: var(--display);
+      font-size: 22px; font-weight: 900;
+      margin-bottom: 8px; letter-spacing: .5px;
+    }
+    .tool-card .card-desc {
+      font-size: 14px; color: var(--text-sub);
+      margin-bottom: 18px; line-height: 1.7;
+    }
+
+    .tool-card .specs {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 18px;
+    }
+    .specs .spec {
+      font-size: 12px; color: var(--text-dim);
+      background: var(--surface-alt);
+      padding: 5px 12px; border-radius: 3px;
+      border: 1px solid var(--border);
+    }
+
+    .tool-card .keyword {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--display);
+      font-size: 28px; font-weight: 900;
+      letter-spacing: 2px; cursor: pointer;
+      padding: 8px 20px;
+      border: 2px dashed var(--border);
+      border-radius: 6px;
+      transition: all .25s;
+      user-select: all;
+      position: relative;
+    }
+    .card-scanner .keyword { color: var(--amber); border-color: rgba(212, 160, 63, 0.3); }
+    .card-blueprint .keyword { color: var(--blue); border-color: rgba(91, 155, 213, 0.3); }
+    .card-manual .keyword { color: var(--green); border-color: rgba(93, 174, 139, 0.3); }
+
+    .keyword:hover {
+      border-style: solid;
+      box-shadow: 0 0 24px rgba(212, 160, 63, 0.1);
+    }
+    .keyword .copy-hint {
+      font-family: var(--body);
+      font-size: 11px; font-weight: 400; letter-spacing: 0;
+      color: var(--text-dim);
+      position: absolute;
+      bottom: -20px; left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .keyword.copied .copy-hint {
+      opacity: 1;
+      color: var(--green);
+    }
+
+    /* ─── FLOW DIAGRAM ─── */
+    .flow-section {
+      padding: 36px 0;
+    }
+    .flow-diagram {
+      display: flex; align-items: center; gap: 0;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    .flow-node {
+      flex: 1; min-width: 100px;
+      text-align: center; padding: 12px 8px;
+    }
+    .flow-node .flow-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 18px; margin-bottom: 8px;
+    }
+    .flow-icon.f1 { background: var(--amber-glow); color: var(--amber); }
+    .flow-icon.f2 { background: var(--blue-glow); color: var(--blue); }
+    .flow-icon.f3 { background: var(--green-glow); color: var(--green); }
+    .flow-node .flow-label {
+      font-size: 13px; font-weight: 700; color: var(--text);
+      margin-bottom: 2px;
+    }
+    .flow-node .flow-sub {
+      font-size: 11px; color: var(--text-dim);
+    }
+    .flow-arrow {
+      font-size: 20px; color: var(--border); flex-shrink: 0;
+    }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      padding: 40px 0 48px;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-family: var(--display);
+      font-size: 22px; font-weight: 900;
+      margin-bottom: 12px; letter-spacing: .5px;
+    }
+    .cta-section .cta-desc {
+      font-size: 14px; color: var(--text-sub);
+      margin-bottom: 28px; line-height: 1.7; max-width: 400px;
+      margin-left: auto; margin-right: auto;
+    }
+    .cta-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-bottom: 32px;
+    }
+    .cta-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 18px 10px;
+      text-align: center; cursor: pointer;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .cta-chip:hover {
+      border-color: var(--amber);
+      box-shadow: 0 0 20px rgba(212, 160, 63, 0.08);
+    }
+    .cta-chip .kw {
+      font-family: var(--display);
+      font-size: 22px; font-weight: 900;
+      letter-spacing: 1px; margin-bottom: 4px;
+    }
+    .cta-chip:nth-child(1) .kw { color: var(--amber); }
+    .cta-chip:nth-child(2) .kw { color: var(--blue); }
+    .cta-chip:nth-child(3) .kw { color: var(--green); }
+    .cta-chip .kw-desc {
+      font-size: 11px; color: var(--text-dim);
+    }
+
+    .cta-note {
+      font-size: 13px; color: var(--text-dim);
+      line-height: 1.7; max-width: 420px;
+      margin: 0 auto;
+    }
+    .cta-note strong { color: var(--text); }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; color: var(--text-dim);
+    }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(100px);
+      background: var(--amber); color: var(--bg);
+      font-size: 14px; font-weight: 700; padding: 10px 24px;
+      border-radius: 6px; z-index: 100;
+      transition: transform .35s cubic-bezier(.22, .61, .36, 1);
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ─── SCAN LINE ANIMATION (hero only) ─── */
+    @keyframes scan {
+      0% { top: -2px; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 102%; opacity: 0; }
+    }
+    .scan-overlay {
+      position: relative;
+    }
+    .scan-overlay::after {
+      content: "";
+      position: absolute; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      opacity: 0;
+      animation: scan 3.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .hero { padding: 36px 0 28px; }
+      .metrics .metric { padding: 14px 6px; }
+      .metric .num { font-size: 26px; }
+      .tool-card { padding: 22px 16px; }
+      .tool-card .keyword { font-size: 22px; padding: 6px 16px; }
+      .cta-grid { grid-template-columns: 1fr; gap: 10px; }
+      .flow-diagram { flex-direction: column; gap: 4px; padding: 16px; }
+      .flow-arrow { transform: rotate(90deg); }
+      .top-bar { padding: 12px 16px; }
+      .container { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ TOP BAR ═══ -->
+<nav class="top-bar">
+  <div class="brand">张希 <span>·</span> 利明智耀</div>
+  <div>私域获客系统</div>
+</nav>
+
+<div class="container">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero scan-overlay">
+    <div class="hero-badge">LEAD MAGNET SYSTEM</div>
+    <h1>你的私域获客系统<br>缺了哪张<em>底牌</em>？</h1>
+    <p class="hero-desc">
+      三张底牌，一条链路。从破冰到关单到筛选，把加进来的每一个微信好友，变成能转化的准客户。
+    </p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="num">01</div>
+        <div class="label">破冰钩子</div>
+      </div>
+      <div class="metric">
+        <div class="num">02</div>
+        <div class="label">系统框架</div>
+      </div>
+      <div class="metric">
+        <div class="num">03</div>
+        <div class="label">执行手册</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TOOL 01: 自检表 ═══ -->
+  <section>
+    <div class="section-head">
+      <div class="step">第一张底牌 / 获客入口</div>
+      <h2>照妖镜：找出你的失血点</h2>
+    </div>
+
+    <div class="tool-card card-scanner">
+      <div class="card-tag">诊断工具</div>
+      <h3>企业新媒体健康度自检表</h3>
+      <p class="card-desc">
+        一张表，四个维度，满分100分。老板填完就知道公司的钱漏在哪了。绑在所有公域文章末尾，是最宽的获客漏斗。
+      </p>
+      <div class="specs">
+        <span class="spec">4大诊断维度</span>
+        <span class="spec">100分制评分</span>
+        <span class="spec">含诊断指南</span>
+        <span class="spec">配套破防文案</span>
+      </div>
+      <div class="keyword" onclick="copyKeyword('【自检】', this)">
+        【自检】
+        <span class="copy-hint">已复制，去微信粘贴发送</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector">
+    <div class="line reverse"></div>
+    <div class="dot"></div>
+    <div class="line"></div>
+  </div>
+
+  <!-- ═══ TOOL 02: 全景图 ═══ -->
+  <section>
+    <div class="section-head">
+      <div class="step">第二张底牌 / 关单工具</div>
+      <h2>作战图：一眼看穿全貌</h2>
+    </div>
+
+    <div class="tool-card card-blueprint">
+      <div class="card-tag">系统框架</div>
+      <h3>年度系统陪跑落地全景图</h3>
+      <p class="card-desc">
+        一张"高速公路图"，8大交付装备 + 3个月陪跑路径。老板看一眼就知道系统怎么建、钱花在哪、结果是什么。
+      </p>
+      <div class="specs">
+        <span class="spec">4大板块</span>
+        <span class="spec">8个交付包</span>
+        <span class="spec">3个月时间轴</span>
+        <span class="spec">ROI算账区</span>
+      </div>
+      <div class="keyword" onclick="copyKeyword('【陪跑】', this)">
+        【陪跑】
+        <span class="copy-hint">已复制，去微信粘贴发送</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector">
+    <div class="line reverse"></div>
+    <div class="dot"></div>
+    <div class="line"></div>
+  </div>
+
+  <!-- ═══ TOOL 03: SOP手册 ═══ -->
+  <section>
+    <div class="section-head">
+      <div class="step">第三张底牌 / 筛选工具</div>
+      <h2>操作手册：拿来就能跑</h2>
+    </div>
+
+    <div class="tool-card card-manual">
+      <div class="card-tag">执行SOP</div>
+      <h3>私域 0-72 小时高转化承接 SOP 手册</h3>
+      <p class="card-desc">
+        3个阶段、12个标准动作、话术模板全给你。72小时内完成从"陌生人"到"准客户"的蜕变。筛选出真正愿意动手的执行型老板。
+      </p>
+      <div class="specs">
+        <span class="spec">3阶段</span>
+        <span class="spec">12个标准动作</span>
+        <span class="spec">话术模板</span>
+        <span class="spec">自动回复流程</span>
+      </div>
+      <div class="keyword" onclick="copyKeyword('【SOP】', this)">
+        【SOP】
+        <span class="copy-hint">已复制，去微信粘贴发送</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FLOW SUMMARY ═══ -->
+  <section class="flow-section">
+    <div class="section-head">
+      <h2>三张底牌，一条流水线</h2>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-node">
+        <div class="flow-icon f1">1</div>
+        <div class="flow-label">塞自检表</div>
+        <div class="flow-sub">老板带着压力加你微信</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="flow-icon f2">2</div>
+        <div class="flow-label">发全景图</div>
+        <div class="flow-sub">一眼看懂系统价值</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="flow-icon f3">3</div>
+        <div class="flow-label">送SOP手册</div>
+        <div class="flow-sub">筛选执行型种子客户</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta-section">
+    <h2>选一张底牌，现在开始</h2>
+    <p class="cta-desc">
+      在微信私信回复对应关键词，我会把完整版发给你。点一下直接复制。
+    </p>
+    <div class="cta-grid">
+      <div class="cta-chip" onclick="copyKeyword('【自检】', this)">
+        <div class="kw">【自检】</div>
+        <div class="kw-desc">获取健康度自检表</div>
+      </div>
+      <div class="cta-chip" onclick="copyKeyword('【陪跑】', this)">
+        <div class="kw">【陪跑】</div>
+        <div class="kw-desc">获取系统全景图</div>
+      </div>
+      <div class="cta-chip" onclick="copyKeyword('【SOP】', this)">
+        <div class="kw">【SOP】</div>
+        <div class="kw-desc">获取承接SOP手册</div>
+      </div>
+    </div>
+    <p class="cta-note">
+      三张都想要？<strong>先拿自检表</strong>——它是所有诊断的起点。测完分数自然知道下一步该拿什么。
+    </p>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <span>张希 · 利明智耀</span>
+    <span>私域获客系统</span>
+  </footer>
+
+  <div style="text-align:center;padding:0 0 32px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+    <a href="selfcheck.html" style="color:var(--amber);font-size:13px;text-decoration:none;border:1px solid rgba(212,160,63,0.3);padding:6px 16px;border-radius:4px;">自检表 →</a>
+    <a href="panorama.html" style="color:var(--blue);font-size:13px;text-decoration:none;border:1px solid rgba(91,155,213,0.3);padding:6px 16px;border-radius:4px;">全景图 →</a>
+    <a href="sop-handbook.html" style="color:var(--green);font-size:13px;text-decoration:none;border:1px solid rgba(93,174,139,0.3);padding:6px 16px;border-radius:4px;">SOP手册 →</a>
+  </div>
+
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast">已复制，去微信粘贴发送</div>
+
+<script>
+  function copyKeyword(text, el) {
+    navigator.clipboard.writeText(text).then(() => {
+      el.classList.add('copied');
+      setTimeout(() => el.classList.remove('copied'), 2000);
+
+      const toast = document.getElementById('toast');
+      toast.textContent = `「${text}」已复制，去微信私信粘贴发送`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }).catch(() => {
+      // Fallback: select text for manual copy
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    });
+  }
+</script>
+
+</body>
+</html>

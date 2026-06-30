@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>年度系统陪跑落地全景图 · 张希</title>
+  <style>
+    :root {
+      --ink: #17212b;
+      --muted: #5f6b76;
+      --line: #d8dee5;
+      --paper: #f7f5ef;
+      --white: #fffdf8;
+      --gold: #b78a37;
+      --green: #2e7d63;
+      --red: #b24a3b;
+      --blue: #315f8f;
+      --navy: #17212b;
+      --ice: #eef4f8;
+      --card: #fbfcfd;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #ded8cd;
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    .sheet {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      background: var(--paper);
+      overflow: hidden;
+    }
+
+    /* ─── TOP BAND ─── */
+    .top-band {
+      background: var(--navy);
+      color: #fff;
+      padding: 52px 64px 44px;
+      position: relative;
+    }
+    .top-band::after {
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--gold) 50%, var(--green) 100%);
+    }
+    .brand-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 32px; font-size: 18px; color: #d9c08c;
+    }
+    .brand-mark { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: 1px; }
+    h1 { font-size: 56px; line-height: 1.08; max-width: 760px; letter-spacing: 0; }
+    .sub { margin-top: 18px; max-width: 720px; color: #dfe5ea; font-size: 23px; }
+    .tagline {
+      margin-top: 28px; padding: 18px 24px;
+      border-left: 6px solid var(--gold);
+      background: rgba(255,255,255,.07);
+      font-size: 20px; font-weight: 700; color: #f3d38c;
+    }
+
+    /* ─── CONTENT ─── */
+    .content { padding: 44px 64px 52px; }
+
+    .section-title {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 28px; font-weight: 900; margin-bottom: 28px;
+    }
+    .section-title .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 4px;
+      background: var(--navy); color: #fff; font-size: 18px; flex-shrink: 0;
+    }
+
+    /* ─── SECTION A: 步兵地图 Pipeline ─── */
+    .pipeline {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      margin-bottom: 18px;
+    }
+    .pipe-node {
+      background: var(--card); border: 1px solid var(--line); padding: 24px 18px;
+      text-align: center; position: relative;
+    }
+    .pipe-node::after {
+      content: "▸";
+      position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+      font-size: 22px; color: var(--blue); z-index: 2;
+    }
+    .pipe-node:last-child::after { content: none; }
+    .pipe-node .step-num {
+      display: inline-block; width: 32px; height: 32px; line-height: 32px;
+      border-radius: 50%; background: var(--blue); color: #fff;
+      font-size: 14px; font-weight: 900; margin-bottom: 10px;
+    }
+    .pipe-node h3 { font-size: 20px; margin-bottom: 6px; }
+    .pipe-node .tag { font-size: 13px; color: var(--blue); font-weight: 700; margin-bottom: 6px; }
+    .pipe-node .desc { font-size: 14px; color: var(--muted); }
+    .pipeline-quote {
+      text-align: center; font-size: 20px; font-weight: 800; color: var(--blue);
+      padding: 18px 0 8px; font-style: italic;
+    }
+    .pipeline-note {
+      text-align: center; font-size: 14px; color: var(--muted); margin-bottom: 44px;
+    }
+
+    /* ─── SECTION B: 战车装备 Cards ─── */
+    .arsenal {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+      margin-bottom: 44px;
+    }
+    .arsenal-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-top: 5px solid var(--blue); padding: 20px 18px; min-height: 130px;
+      position: relative;
+    }
+    .arsenal-card:nth-child(2) { border-top-color: #7c3aed; }
+    .arsenal-card:nth-child(3) { border-top-color: var(--red); }
+    .arsenal-card:nth-child(4) { border-top-color: #ea580c; }
+    .arsenal-card:nth-child(5) { border-top-color: #0891b2; }
+    .arsenal-card:nth-child(6) { border-top-color: var(--green); }
+    .arsenal-card:nth-child(7) { border-top-color: #9333ea; }
+    .arsenal-card:nth-child(8) { border-top-color: var(--gold); }
+    .arsenal-card .idx {
+      position: absolute; top: 10px; right: 12px;
+      font-size: 12px; color: var(--line); font-weight: 900;
+    }
+    .arsenal-card .badge {
+      display: inline-block; font-size: 12px; font-weight: 800; padding: 3px 10px;
+      border-radius: 3px; margin-bottom: 10px;
+      background: var(--ice); color: var(--blue);
+    }
+    .arsenal-card:nth-child(2) .badge { color: #7c3aed; }
+    .arsenal-card:nth-child(3) .badge { color: var(--red); }
+    .arsenal-card:nth-child(4) .badge { color: #ea580c; }
+    .arsenal-card:nth-child(5) .badge { color: #0891b2; }
+    .arsenal-card:nth-child(6) .badge { color: var(--green); }
+    .arsenal-card:nth-child(7) .badge { color: #9333ea; }
+    .arsenal-card:nth-child(8) .badge { color: var(--gold); }
+    .arsenal-card h4 { font-size: 17px; line-height: 1.35; margin-bottom: 4px; }
+
+    /* ─── SECTION C: 作战路径 Timeline ─── */
+    .timeline { margin-bottom: 18px; }
+    .tl-bar {
+      display: flex; align-items: stretch; gap: 0; height: 180px;
+      margin-bottom: 18px;
+    }
+    .tl-month {
+      background: var(--card); border: 1px solid var(--line); padding: 24px 20px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative;
+    }
+    .tl-month.m1 { flex: 3.6; border-left: 6px solid var(--blue); }
+    .tl-month.m2 { flex: 3.0; border-left: 6px solid #3b82f6; }
+    .tl-month.m3 { flex: 2.4; border-left: 6px solid #60a5fa; }
+    .tl-month .mo {
+      display: inline-block; font-size: 13px; font-weight: 900; color: #fff;
+      background: var(--blue); padding: 4px 14px; border-radius: 3px;
+      align-self: flex-start; margin-bottom: 12px;
+    }
+    .tl-month.m2 .mo { background: #3b82f6; }
+    .tl-month.m3 .mo { background: #60a5fa; }
+    .tl-month .action { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+    .tl-month .tasks { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+    .tl-month .kw { font-size: 16px; font-style: italic; font-weight: 700; color: var(--blue); }
+    .tl-month.m2 .kw { color: #3b82f6; }
+    .tl-month.m3 .kw { color: #60a5fa; }
+    .tl-arrow {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: var(--line); min-width: 20px;
+    }
+    .tl-quote {
+      text-align: center; font-size: 20px; font-weight: 800; color: var(--green);
+      padding: 8px 0; font-style: italic; margin-bottom: 6px;
+    }
+    .tl-note {
+      text-align: center; font-size: 14px; color: var(--muted); margin-bottom: 44px;
+    }
+
+    /* ─── SECTION D: 司令部 ROI ─── */
+    .roi-grid {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 0;
+      margin-bottom: 20px;
+    }
+    .roi-col {
+      background: var(--card); border: 1px solid var(--line); padding: 28px 24px;
+    }
+    .roi-col.lose { border-top: 6px solid var(--red); }
+    .roi-col.win  { border-top: 6px solid var(--green); }
+    .roi-col h3 { font-size: 20px; font-weight: 900; margin-bottom: 16px; }
+    .roi-col.lose h3 { color: var(--red); }
+    .roi-col.win  h3 { color: var(--green); }
+    .roi-col .item { font-size: 15px; padding: 6px 0; color: var(--muted); }
+    .roi-col .item::before { content: "✕ "; color: var(--red); font-weight: 700; }
+    .roi-col.win .item::before { content: "✓ "; color: var(--green); }
+    .roi-col .total {
+      margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line);
+      font-size: 20px; font-weight: 900; color: var(--red);
+    }
+    .roi-col.win .total { color: var(--green); }
+    .roi-vs {
+      display: flex; align-items: center; justify-content: center;
+      width: 64px; flex-shrink: 0;
+    }
+    .roi-vs .vs-badge {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--navy); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 900;
+    }
+    .roi-result {
+      background: var(--navy); color: #fff; padding: 22px 28px;
+      display: flex; align-items: center; justify-content: center; gap: 18px;
+      margin-bottom: 44px;
+    }
+    .roi-result .ratio {
+      font-size: 42px; font-weight: 900; color: var(--gold); line-height: 1;
+    }
+    .roi-result .explain { font-size: 18px; color: #dfe5ea; }
+
+    /* ─── CTA FOOTER ─── */
+    .cta-band {
+      background: var(--navy); color: #fff;
+      padding: 36px 64px; text-align: center;
+    }
+    .cta-band .cta-main { font-size: 26px; font-weight: 900; margin-bottom: 12px; }
+    .cta-band .cta-sub  { font-size: 18px; color: #dfe5ea; margin-bottom: 20px; }
+    .cta-btn {
+      display: inline-block; background: var(--gold); color: var(--navy);
+      font-size: 20px; font-weight: 900; padding: 12px 36px; border-radius: 4px;
+      letter-spacing: 1px;
+    }
+    .cta-foot {
+      margin-top: 28px; display: flex; justify-content: space-between;
+      font-size: 14px; color: #7a8490;
+    }
+
+    @media (max-width: 860px) {
+      .top-band, .content, .cta-band { padding-left: 22px; padding-right: 22px; }
+      h1 { font-size: 36px; }
+      .pipeline { grid-template-columns: 1fr 1fr; }
+      .pipe-node::after { content: none; }
+      .arsenal { grid-template-columns: 1fr 1fr; }
+      .tl-bar { flex-direction: column; height: auto; }
+      .tl-arrow { display: none; }
+      .roi-grid { grid-template-columns: 1fr; }
+      .roi-vs { width: 100%; padding: 10px 0; }
+    }
+  </style>
+</head>
+<body>
+<main class="sheet">
+
+  <!-- ═══ TOP BAND ═══ -->
+  <header class="top-band">
+    <div class="brand-row">
+      <span class="brand-mark">张希 · 利明智耀</span>
+      <span>年度系统陪跑</span>
+    </div>
+    <h1>年度系统陪跑<br>落地全景图</h1>
+    <p class="sub">一张作战地图，帮你3个月建起能自运转的获客部门</p>
+    <div class="tagline">我现在在哪 → 我要去哪 → 怎么去 → 有什么装备。四个问题，一张图回答。</div>
+  </header>
+
+  <div class="content">
+
+    <!-- ═══ 板块一：步兵地图 ═══ -->
+    <div class="section-title"><span class="num">01</span> 步兵地图 — 所有新媒体动作，最终指向这四个字</div>
+
+    <div class="pipeline">
+      <div class="pipe-node">
+        <div class="step-num">1</div>
+        <h3>看见</h3>
+        <div class="tag">公域获客</div>
+        <div class="desc">老板刷到我们的视频/文章</div>
+      </div>
+      <div class="pipe-node">
+        <div class="step-num">2</div>
+        <h3>找到</h3>
+        <div class="tag">搜索占位</div>
+        <div class="desc">搜"XX行业方案"时第一个看到我们</div>
+      </div>
+      <div class="pipe-node">
+        <div class="step-num">3</div>
+        <h3>进门</h3>
+        <div class="tag">漏斗承接</div>
+        <div class="desc">加微信、留电话、进社群</div>
+      </div>
+      <div class="pipe-node">
+        <div class="step-num">4</div>
+        <h3>留下</h3>
+        <div class="tag">私域运营</div>
+        <div class="desc">持续复购、转介绍，成为老客户</div>
+      </div>
+    </div>
+    <div class="pipeline-quote">“所有新媒体动作，最终都指向这四个字：进门、留下。”</div>
+    <div class="pipeline-note">看见 → 找到 → 进门 → 留下 — 每一步都是关键断点，断一处则全链路失效</div>
+
+    <!-- ═══ 板块二：战车装备 ═══ -->
+    <div class="section-title"><span class="num">02</span> 战车装备 — 8个交付包，覆盖从战略到执行全链路</div>
+
+    <div class="arsenal">
+      <div class="arsenal-card">
+        <div class="idx">01</div>
+        <div class="badge">做什么</div>
+        <h4>企业新媒体战略定位工作坊</h4>
+      </div>
+      <div class="arsenal-card">
+        <div class="idx">02</div>
+        <div class="badge">怎么做</div>
+        <h4>AI内容工厂SOP指令库</h4>
+      </div>
+      <div class="arsenal-card">
+        <div class="idx">03</div>
+        <div class="badge">为什么没效果</div>
+        <h4>账号断点修复清单</h4>
+      </div>
+      <div class="arsenal-card">
+        <div class="idx">04</div>
+        <div class="badge">谁来干</div>
+        <h4>内容操盘手能力模型与招聘考核表</h4>
+      </div>
+      <div class="arsenal-card">
+        <div class="idx">05</div>
+        <div class="badge">钱怎么花</div>
+        <h4>获客漏斗断点自检表与ROI测算表</h4>
+      </div>
+      <div class="arsenal-card">
+        <div class="idx">06</div>
+        <div class="badge">进门后怎么接</div>
+        <h4>私域0-72小时高转化承接SOP手册</h4>
+      </div>
+      <div class="arsenal-card">
+        <div class="idx">07</div>
+        <div class="badge">进门后怎么活</div>
+        <h4>私域社群日常运营SOP表</h4>
+      </div>
+      <div class="arsenal-card">
+        <div class="idx">08</div>
+        <div class="badge">现在怎么样</div>
+        <h4>企业新媒体健康度自检表（满分100分）</h4>
+      </div>
+    </div>
+
+    <!-- ═══ 板块三：作战路径 ═══ -->
+    <div class="section-title"><span class="num">03</span> 作战路径 — 3个月，从驻场到交钥匙</div>
+
+    <div class="timeline">
+      <div class="tl-bar">
+        <div class="tl-month m1">
+          <span class="mo">第1个月</span>
+          <div class="action">全体顾问驻场</div>
+          <div class="tasks">诊断 + 定方向 + 打地基</div>
+          <div class="kw">“先修路，别通车”</div>
+        </div>
+        <div class="tl-arrow">▸</div>
+        <div class="tl-month m2">
+          <span class="mo">第2个月</span>
+          <div class="action">顾问带教</div>
+          <div class="tasks">建工厂 + 跑闭环</div>
+          <div class="kw">“先把最小闭环跑通”</div>
+        </div>
+        <div class="tl-arrow">▸</div>
+        <div class="tl-month m3">
+          <span class="mo">第3个月</span>
+          <div class="action">顾问退出日常</div>
+          <div class="tasks">放手 + 复盘 + 交钥匙</div>
+          <div class="kw">“把能力长在团队身上”</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-quote">“3个月后，你得到的不是一个顾问，而是一个能自己转的获客部门。”</div>
+    <div class="tl-note">驻场期（最重） → 带教期（辅助） → 放手期（轻量） — 能力逐步长在团队身上</div>
+
+    <!-- ═══ 板块四：司令部 ═══ -->
+    <div class="section-title"><span class="num">04</span> 司令部 — 10万/年，到底买到了什么？</div>
+
+    <div class="roi-grid">
+      <div class="roi-col lose">
+        <h3>你自己干（1年）</h3>
+        <div class="item">招人：1年 × 12万</div>
+        <div class="item">投流试错：30万</div>
+        <div class="item">无效SOP：5万</div>
+        <div class="item">时间成本：1年</div>
+        <div class="item">试错成本：无数次</div>
+        <div class="total">合计 47万+ + 无数隐性成本</div>
+      </div>
+      <div class="roi-vs"><div class="vs-badge">VS</div></div>
+      <div class="roi-col win">
+        <h3>找张希干（1年）</h3>
+        <div class="item">系统陪跑：10万</div>
+        <div class="item">3个月建系统</div>
+        <div class="item">9个月用它生钱</div>
+        <div class="item">团队自有能力</div>
+        <div class="item">可复用SOP资产</div>
+        <div class="total">10万系统陪跑费</div>
+      </div>
+    </div>
+    <div class="roi-result">
+      <span class="ratio">1 : 4.7</span>
+      <span class="explain">投入产出比 · 前3个月把系统建好，后9个月用它生钱</span>
+    </div>
+
+  </div>
+
+  <!-- ═══ CTA ═══ -->
+  <footer class="cta-band">
+    <div class="cta-main">别再碎片化做新媒体了。我花3个月帮你建一台「获客机器」。</div>
+    <div class="cta-sub">照着走，你的团队也能跑通。</div>
+    <div class="cta-btn">私信回复【陪跑】获取全景图</div>
+    <div class="cta-foot">
+      <span>张希 · 利明智耀</span>
+      <span>年度系统陪跑 · 落地全景图</span>
+    </div>
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid #3a4550;display:flex;gap:20px;justify-content:center;">
+      <a href="selfcheck.html" style="color:#7a8490;font-size:13px;text-decoration:none;" onmouseenter="this.style.color='#d4a03f'" onmouseleave="this.style.color='#7a8490'">← 自检表</a>
+      <a href="sop-handbook.html" style="color:#7a8490;font-size:13px;text-decoration:none;" onmouseenter="this.style.color='#5dae8b'" onmouseleave="this.style.color='#7a8490'">SOP手册 →</a>
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>

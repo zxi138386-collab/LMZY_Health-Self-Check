@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>私域0-72小时高转化承接SOP手册 · 张希</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #19231d;
+      --surface: #1f2d25;
+      --surface-alt: #263629;
+      --border: #304535;
+      --text: #e2e8e0;
+      --text-dim: #7d8f80;
+      --text-sub: #a8b8a4;
+      --green: #5dae8b;
+      --green-bright: #6fc9a0;
+      --green-glow: rgba(93, 174, 139, 0.12);
+      --green-soft: rgba(93, 174, 139, 0.08);
+      --amber: #d4a03f;
+      --blue: #5b9bd5;
+      --display: "Noto Serif SC", "SimSun", "STSong", serif;
+      --body: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: .02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .container { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; color: var(--text-dim); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(25, 35, 29, 0.92); backdrop-filter: blur(12px);
+    }
+    .top-bar .brand { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--text); }
+    .top-bar .brand em { font-style: normal; color: var(--green); }
+
+    /* ─── HERO ─── */
+    .hero { padding: 40px 0 12px; }
+    .hero-badge {
+      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      color: var(--green); border: 1px solid var(--green); padding: 3px 14px; border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .hero h1 { font-family: var(--display); font-size: clamp(24px, 4vw, 32px); font-weight: 900; line-height: 1.25; margin-bottom: 10px; }
+    .hero .sub { font-size: 14px; color: var(--text-sub); max-width: 400px; }
+    .hero .hook {
+      margin-top: 16px; padding: 14px 18px; background: var(--surface);
+      border-left: 4px solid var(--green); border-radius: 0 6px 6px 0;
+      font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--green-bright);
+    }
+
+    /* ─── PROGRESS TIMELINE ─── */
+    .timeline-strip {
+      position: sticky; top: 53px; z-index: 8;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 20px; margin: 24px 0;
+      display: flex; align-items: center; justify-content: center; gap: 0;
+    }
+    .tl-node {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      flex: 1; text-align: center;
+    }
+    .tl-dot {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--border);
+      font-family: var(--display); font-size: 20px; font-weight: 900;
+      background: var(--surface-alt); color: var(--text-dim);
+      transition: all .5s;
+    }
+    .tl-dot.active { border-color: var(--green); background: var(--green-glow); color: var(--green); }
+    .tl-dot.done { border-color: var(--green); background: var(--green); color: var(--bg); }
+    .tl-label { font-size: 12px; font-weight: 700; color: var(--text-dim); transition: color .5s; }
+    .tl-dot.active ~ .tl-label, .tl-node:has(.tl-dot.active) .tl-label { color: var(--green); }
+    .tl-dot.done ~ .tl-label, .tl-node:has(.tl-dot.done) .tl-label { color: var(--green); }
+    .tl-line {
+      height: 2px; flex: 0.5; min-width: 20px;
+      background: var(--border); margin: 0 4px;
+      transition: background .5s;
+      margin-bottom: 22px;
+    }
+    .tl-line.done { background: var(--green); }
+
+    /* ─── STAGE ─── */
+    .stage { margin-bottom: 32px; }
+    .stage-head {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .stage-head .stage-num {
+      width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-size: 17px; font-weight: 900;
+      background: var(--green-glow); color: var(--green);
+    }
+    .stage-head h2 { font-size: 18px; font-weight: 800; }
+    .stage-head .stage-time { font-size: 12px; color: var(--text-dim); margin-left: auto; }
+
+    /* ─── ACTION ─── */
+    .action {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; margin-bottom: 8px;
+      overflow: hidden; transition: border-color .3s;
+    }
+    .action.open { border-color: rgba(93, 174, 139, 0.3); }
+    .action-header {
+      display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+      cursor: pointer; user-select: none;
+      transition: background .2s;
+    }
+    .action-header:hover { background: var(--green-soft); }
+    .action-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 900; color: var(--text-dim);
+      background: var(--surface-alt); border: 1px solid var(--border);
+    }
+    .action-info { flex: 1; min-width: 0; }
+    .action-info .action-title { font-size: 14px; font-weight: 700; color: var(--text); }
+    .action-info .action-timing { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+    .action-arrow {
+      font-size: 14px; color: var(--text-dim); transition: transform .3s;
+      flex-shrink: 0;
+    }
+    .action.open .action-arrow { transform: rotate(180deg); color: var(--green); }
+    .action-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s ease, padding .4s ease;
+    }
+    .action.open .action-body {
+      max-height: 500px;
+    }
+    .action-content {
+      padding: 0 16px 16px;
+      font-size: 13px; color: var(--text-sub); line-height: 1.75;
+      border-top: 1px solid var(--border);
+    }
+    .action-content .template-block {
+      margin-top: 12px; background: var(--surface-alt);
+      border-radius: 6px; padding: 14px 16px;
+      font-size: 12px; color: var(--text); line-height: 1.8;
+      white-space: pre-wrap; font-family: var(--body);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .template-block .tpl-label {
+      position: absolute; top: -8px; left: 12px;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      color: var(--green); background: var(--surface-alt);
+      padding: 0 8px;
+    }
+    .action-content .checklist { margin-top: 10px; }
+    .action-content .checklist li {
+      list-style: none; padding: 3px 0; font-size: 12px; color: var(--text-dim);
+      display: flex; align-items: flex-start; gap: 6px;
+    }
+    .action-content .checklist li::before {
+      content: "☐"; color: var(--green); flex-shrink: 0;
+    }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      padding: 32px 0 40px; text-align: center;
+      border-top: 1px solid var(--border); margin-top: 8px;
+    }
+    .cta-section h2 {
+      font-family: var(--display); font-size: 20px; font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .cta-desc { font-size: 13px; color: var(--text-sub); margin-bottom: 20px; }
+    .btn {
+      display: inline-block; font-family: var(--display); font-size: 18px; font-weight: 900;
+      letter-spacing: 1px; padding: 12px 32px; border-radius: 6px; cursor: pointer;
+      transition: all .25s; text-decoration: none;
+      background: var(--green); color: var(--bg); border: none;
+    }
+    .btn:hover { background: var(--green-bright); }
+    .cta-hint { margin-top: 12px; font-size: 12px; color: var(--text-dim); }
+
+    .footer {
+      padding: 24px 0; border-top: 1px solid var(--border);
+      text-align: center; font-size: 12px; color: var(--text-dim);
+    }
+
+    /* ─── EXPAND ALL ─── */
+    .expand-all {
+      text-align: center; margin-bottom: 16px;
+    }
+    .expand-all button {
+      background: none; border: 1px solid var(--border); color: var(--text-dim);
+      font-size: 12px; padding: 6px 18px; border-radius: 4px; cursor: pointer;
+      font-family: var(--body); transition: all .2s;
+    }
+    .expand-all button:hover { border-color: var(--green); color: var(--green); }
+
+    @media (max-width: 480px) {
+      .hero { padding: 28px 0 8px; }
+      .tl-dot { width: 40px; height: 40px; font-size: 17px; }
+      .container { padding: 0 14px; }
+      .action-header { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="top-bar">
+  <div class="brand">张希 <em>·</em> 利明智耀</div>
+  <div>SOP 承接手册</div>
+</nav>
+
+<div class="container">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-badge">EXECUTION PLAYBOOK</div>
+    <h1>私域 0→72 小时<br>高转化承接 SOP 手册</h1>
+    <p class="sub">不是理论，是拿来就能用的操作说明书。3个阶段、12个标准动作，72小时内完成从"陌生人"到"准客户"的蜕变。</p>
+    <div class="hook">"别让加了你微信的客户死在'冷启动'里。"</div>
+  </section>
+
+  <!-- ═══ TIMELINE STRIP ═══ -->
+  <div class="timeline-strip">
+    <div class="tl-node">
+      <div class="tl-dot active" id="dot1">1</div>
+      <div class="tl-label">破冰激活</div>
+    </div>
+    <div class="tl-line" id="line1"></div>
+    <div class="tl-node">
+      <div class="tl-dot" id="dot2">2</div>
+      <div class="tl-label">价值培育</div>
+    </div>
+    <div class="tl-line" id="line2"></div>
+    <div class="tl-node">
+      <div class="tl-dot" id="dot3">3</div>
+      <div class="tl-label">转化交付</div>
+    </div>
+  </div>
+
+  <!-- ═══ EXPAND ALL ═══ -->
+  <div class="expand-all">
+    <button onclick="expandAll()">展开全部 12 个动作</button>
+  </div>
+
+  <!-- ═══ STAGE 1: 破冰激活 0-6小时 ═══ -->
+  <section class="stage" data-stage="1">
+    <div class="stage-head">
+      <div class="stage-num">1</div>
+      <h2>破冰激活</h2>
+      <div class="stage-time">0 → 6 小时</div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">01</div>
+        <div class="action-info">
+          <div class="action-title">自动欢迎：加微信后 5 分钟内</div>
+          <div class="action-timing">触发时机：通过好友申请瞬间</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>第一印象定生死。不要让新好友看到一片空白。用企业微信/个微自动回复，在通过申请的瞬间发送欢迎信息。</p>
+          <div class="template-block">
+            <span class="tpl-label">话术模板</span>
+欢迎[昵称]！我是你的专属服务顾问[名字]。
+我们专注于为[目标人群]提供[核心价值]。
+
+现在，请收下这份《新人见面礼》：
+→ [具体内容 + 链接]
+→ [具体优惠]
+
+有任何问题，随时找我，我们一起搞定。
+          </div>
+          <ul class="checklist">
+            <li>欢迎语包含"你是谁 + 你能帮什么 + 下一步动作"</li>
+            <li>附件/链接提前准备好，不要发了欢迎再去找</li>
+            <li>语气像朋友介绍，不像客服机器人</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">02</div>
+        <div class="action-info">
+          <div class="action-title">快速标签：1 小时内建立客户画像</div>
+          <div class="action-timing">触发时机：客户第一次互动</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>根据客户来源渠道、问的第一句话、领取的资料类型，打上标签。标签体系决定了后续所有触达的精准度。</p>
+          <ul class="checklist">
+            <li>渠道标签：公众号/视频号/抖音/转介绍/活动</li>
+            <li>意向标签：询价/了解/同行/随便看看</li>
+            <li>行业标签：制造业/零售/医疗/平台</li>
+            <li>阶段标签：新加/已互动/已报价/已成交</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">03</div>
+        <div class="action-info">
+          <div class="action-title">破冰提问：30 分钟内发起对话</div>
+          <div class="action-timing">触发时机：自动欢迎发送后</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>不要发完欢迎就等着。用一个低门槛的提问让对方开口。问题要简单到对方不能不回。</p>
+          <div class="template-block">
+            <span class="tpl-label">示例</span>
+"[客户昵称]，你是在哪看到我们的呀？我看看你拿到的资料是不是最全的那版。"
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">04</div>
+        <div class="action-info">
+          <div class="action-title">信任铺垫：第 2 小时发一条朋友圈</div>
+          <div class="action-timing">触发时机：第一次对话后的 1-2 小时</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>发一条能展示专业度的朋友圈内容——案例、客户反馈、行业观点皆可。目的不是让他买，是让他觉得"这个人确实懂行"。</p>
+          <ul class="checklist">
+            <li>朋友圈展示面要干净，前3条决定第一印象</li>
+            <li>内容类型：客户证言 > 案例拆解 > 行业洞察 > 个人日常</li>
+            <li>不要发广告、不要发广告、不要发广告</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STAGE 2: 价值培育 6-48小时 ═══ -->
+  <section class="stage" data-stage="2">
+    <div class="stage-head">
+      <div class="stage-num">2</div>
+      <h2>价值培育</h2>
+      <div class="stage-time">6 → 48 小时</div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">05</div>
+        <div class="action-info">
+          <div class="action-title">入群邀请：第 6 小时拉入社群</div>
+          <div class="action-timing">触发时机：完成破冰对话后</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>社群不是用来发广告的，是用来让客户"看见你一直在做事"。入群即价值交付。</p>
+          <div class="template-block">
+            <span class="tpl-label">话术模板</span>
+[昵称]！我发现你对[品类/需求]很感兴趣，这对你应该有帮助。
+
+我们有一个专属[主题]交流群，群里会分享：
+① 每周行业干货
+② 定期福利秒杀
+③ 使用技巧答疑
+
+👉 [入群链接]
+期待在群里和你相遇！
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">06</div>
+        <div class="action-info">
+          <div class="action-title">社群迎新：入群后 30 分钟</div>
+          <div class="action-timing">触发时机：客户入群</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>新人入群要有仪式感。其他群友的欢迎 + 群主的自我介绍 + 新人福利，三步到位。</p>
+          <ul class="checklist">
+            <li>群公告提前写好新人必读</li>
+            <li>安排 2-3 个"内应"在群里带头欢迎</li>
+            <li>入群福利当天送达，不要让新人等</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">07</div>
+        <div class="action-info">
+          <div class="action-title">案例触达：第 24 小时发送深度案例</div>
+          <div class="action-timing">触发时机：入群后次日</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>不要发广告，发一个"别人用了我们的产品/服务后发生了什么"的真实故事。故事比任何推销都有力量。</p>
+          <ul class="checklist">
+            <li>案例格式：背景 → 问题 → 解决方案 → 结果 → 客户证言</li>
+            <li>附上真实数据（脱敏后可公开的）</li>
+            <li>末尾留一个开放式问题引发讨论</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">08</div>
+        <div class="action-info">
+          <div class="action-title">催促提醒：第 36 小时限时触达</div>
+          <div class="action-timing">触发时机：新人福利即将过期前</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>利用"即将失去"的心理，推动犹豫的客户做决定。注意：催促要自然，不要制造恐慌。</p>
+          <div class="template-block">
+            <span class="tpl-label">话术模板</span>
+[昵称]，你上次领取的《新人专享券》还剩不到36小时就过期了。
+这张券可以帮你以专享价拿下[推荐产品]。
+很多客户反馈说，这是他们入手最高性价比的选择。
+
+📢 [下单链接]
+别错过，这波优惠后面不一定有。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STAGE 3: 转化交付 48-72小时 ═══ -->
+  <section class="stage" data-stage="3">
+    <div class="stage-head">
+      <div class="stage-num">3</div>
+      <h2>转化交付</h2>
+      <div class="stage-time">48 → 72 小时</div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">09</div>
+        <div class="action-info">
+          <div class="action-title">意向判断：第 48 小时精准出击</div>
+          <div class="action-timing">触发时机：完成2轮互动后</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>根据前48小时的互动数据判断客户意向。不是所有人都值得跟进，把精力放在高意向客户身上。</p>
+          <ul class="checklist">
+            <li>高意向：主动提问、打开链接多次、在群里有互动</li>
+            <li>中意向：领取了资料但没进一步动作</li>
+            <li>低意向：加了不说话、不打开、不进群</li>
+            <li>高意向 → 私信跟进。中意向 → 继续培育。低意向 → 不打扰，30天后统一激活</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">10</div>
+        <div class="action-info">
+          <div class="action-title">方案建议：第 56 小时提供方案</div>
+          <div class="action-timing">触发时机：确认客户意向后</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>不要直接报价。先给一个简短的诊断或建议，展示你理解他的问题。方案越个性化、成交率越高。</p>
+          <ul class="checklist">
+            <li>引用之前对话中他提到的具体痛点</li>
+            <li>用框架图/表格展示，不是长篇文字</li>
+            <li>给两个选项，让他选择而不是让他决定买不买</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">11</div>
+        <div class="action-info">
+          <div class="action-title">临门一脚：第 64 小时推动决策</div>
+          <div class="action-timing">触发时机：方案发出后 8 小时</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>发出方案后不要消失。8小时内跟进一次，消除最后的顾虑。不是催单，是"我还在，有什么不懂的随时问"。</p>
+          <ul class="checklist">
+            <li>跟进时机：上午10点或下午3点（工作时间）</li>
+            <li>跟进话术：不是"考虑得怎么样"，是"方案里有哪个部分需要我再详细解释"</li>
+            <li>如果对方说"再看看"，不要追。列入下周回访清单</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-header" onclick="toggleAction(this)">
+        <div class="action-num">12</div>
+        <div class="action-info">
+          <div class="action-title">交付启动：第 72 小时进入正循环</div>
+          <div class="action-timing">触发时机：成交后即刻</div>
+        </div>
+        <div class="action-arrow">▾</div>
+      </div>
+      <div class="action-body">
+        <div class="action-content">
+          <p>成交不是终点，是交付的起点。72小时内完成"签约→入项→首日交付"，让客户觉得"钱花得太值了"。</p>
+          <ul class="checklist">
+            <li>发送正式欢迎邮件/文档（品牌感要足）</li>
+            <li>48小时内安排首次项目会议</li>
+            <li>明确接下来2周的里程碑和交付物</li>
+            <li>引导客户做第一件小事，让他立刻感受到"动起来了"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta-section">
+    <h2>完整版手册 + 话术模板</h2>
+    <p class="cta-desc">这篇文章只是摘要。完整版包含全部12个动作的详细话术和落地清单。</p>
+    <button class="btn" onclick="copyKeyword('【SOP】')">私信回复【SOP】获取完整版</button>
+    <p class="cta-hint">点一下直接复制关键词，去微信粘贴发送</p>
+  </section>
+
+  <div class="footer">
+    <div style="margin-bottom:12px;display:flex;gap:16px;justify-content:center;">
+      <a href="selfcheck.html" style="color:var(--text-dim);font-size:12px;text-decoration:none;" onmouseenter="this.style.color='var(--amber)'" onmouseleave="this.style.color='var(--text-dim)'">← 自检表</a>
+      <a href="panorama.html" style="color:var(--text-dim);font-size:12px;text-decoration:none;" onmouseenter="this.style.color='var(--blue)'" onmouseleave="this.style.color='var(--text-dim)'">全景图 →</a>
+    </div>
+    张希 · 利明智耀 · 私域承接体系
+  </div>
+
+</div>
+
+<script>
+  function toggleAction(header) {
+    const action = header.closest('.action');
+    action.classList.toggle('open');
+  }
+
+  function expandAll() {
+    const actions = document.querySelectorAll('.action');
+    const allOpen = [...actions].every(a => a.classList.contains('open'));
+    actions.forEach(a => {
+      if (allOpen) a.classList.remove('open');
+      else a.classList.add('open');
+    });
+    document.querySelector('.expand-all button').textContent =
+      allOpen ? '展开全部 12 个动作' : '收起全部';
+  }
+
+  function copyKeyword(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position:fixed;bottom:32px;left:50%;transform:translateX(-50%);z-index:100;
+        background:var(--green);color:var(--bg);font-size:14px;font-weight:700;
+        padding:10px 24px;border-radius:6px;transition:all .35s;
+      `;
+      toast.textContent = `「${text}」已复制，去微信私信粘贴发送`;
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2400);
+    });
+  }
+
+  // Intersection Observer to update timeline dots
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const stageNum = entry.target.dataset.stage;
+        // Update dots
+        for (let i = 1; i <= 3; i++) {
+          const dot = document.getElementById('dot' + i);
+          dot.classList.remove('active', 'done');
+          if (i < parseInt(stageNum)) dot.classList.add('done');
+          if (i === parseInt(stageNum)) dot.classList.add('active');
+        }
+        // Update lines
+        for (let i = 1; i <= 2; i++) {
+          const line = document.getElementById('line' + i);
+          if (i < parseInt(stageNum)) line.classList.add('done');
+          else line.classList.remove('done');
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.stage').forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
