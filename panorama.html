@@ -3,424 +3,451 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>年度系统陪跑落地全景图 · 张希</title>
+  <title>企业新媒体经营系统共建全景图 · 微信长图</title>
   <style>
     :root {
-      --ink: #17212b;
-      --muted: #5f6b76;
-      --line: #d8dee5;
-      --paper: #f7f5ef;
-      --white: #fffdf8;
-      --gold: #b78a37;
-      --green: #2e7d63;
-      --red: #b24a3b;
-      --blue: #315f8f;
-      --navy: #17212b;
-      --ice: #eef4f8;
-      --card: #fbfcfd;
+      --ink: #17212b; --muted: #5f6b76; --line: #d8dee5;
+      --paper: #fbfcfd; --white: #fff; --blue: #1e3a5f; --accent: #d45a2a;
+      --gold: #b78a37; --green: #2e7d63; --ice: #eef4f8; --warm: #fef9f4;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: #ded8cd;
-      color: var(--ink);
-      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
-      line-height: 1.55;
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    h1, h2, h3, h4,
+    .brand, .tagline, .sec-title, .sec-sub, .pn-tag,
+    .pipe-quote, .card-note, .do-label, .result, .deliver,
+    .kw, .tl-quote, .tl-note, .comp-quote, .cta-desc, .cta-foot {
+      text-wrap: balance;
+      line-break: strict;
     }
-
+    p, td, .do-item {
+      text-wrap: pretty;
+      line-break: strict;
+      word-break: normal;
+      overflow-wrap: break-word;
+    }
+    body {
+      background: #e4e6e9;
+      color: var(--ink);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+      line-height: 1.7;
+      display: flex; justify-content: center;
+    }
     .sheet {
-      width: min(1120px, 100%);
-      margin: 0 auto;
+      width: 750px;
       background: var(--paper);
       overflow: hidden;
     }
 
-    /* ─── TOP BAND ─── */
-    .top-band {
-      background: var(--navy);
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--blue);
       color: #fff;
-      padding: 52px 64px 44px;
+      padding: 64px 48px 52px;
+      text-align: center;
       position: relative;
     }
-    .top-band::after {
+    .hero::after {
       content: "";
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--blue) 0%, var(--gold) 50%, var(--green) 100%);
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 50%, var(--green) 100%);
     }
-    .brand-row {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 32px; font-size: 18px; color: #d9c08c;
+    .hero .brand {
+      font-size: 22px; font-weight: 900; color: rgba(255,255,255,.65);
+      letter-spacing: 2px; margin-bottom: 32px;
     }
-    .brand-mark { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: 1px; }
-    h1 { font-size: 56px; line-height: 1.08; max-width: 760px; letter-spacing: 0; }
-    .sub { margin-top: 18px; max-width: 720px; color: #dfe5ea; font-size: 23px; }
-    .tagline {
-      margin-top: 28px; padding: 18px 24px;
-      border-left: 6px solid var(--gold);
-      background: rgba(255,255,255,.07);
-      font-size: 20px; font-weight: 700; color: #f3d38c;
+    .hero h1 {
+      font-size: 48px; line-height: 1.18; font-weight: 900;
+      letter-spacing: 0;
+    }
+    .hero .hl {
+      color: var(--accent);
+    }
+    .hero .tagline {
+      margin-top: 28px;
+      display: inline-block;
+      padding: 18px 36px;
+      border-left: 6px solid var(--accent);
+      background: rgba(255,255,255,.08);
+      font-size: 26px; font-weight: 800; line-height: 1.6;
+      letter-spacing: 2px;
     }
 
     /* ─── CONTENT ─── */
-    .content { padding: 44px 64px 52px; }
+    .content { padding: 40px 40px 0; }
 
-    .section-title {
-      display: flex; align-items: center; gap: 14px;
-      font-size: 28px; font-weight: 900; margin-bottom: 28px;
-    }
-    .section-title .num {
+    .sec-num {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 40px; height: 40px; border-radius: 4px;
-      background: var(--navy); color: #fff; font-size: 18px; flex-shrink: 0;
+      width: 52px; height: 52px; background: var(--blue); color: #fff;
+      font-size: 22px; font-weight: 900; flex-shrink: 0;
+      margin-right: 16px;
+    }
+    .sec-title {
+      display: flex; align-items: center;
+      font-size: 32px; font-weight: 900; margin-bottom: 8px;
+    }
+    .sec-sub {
+      font-size: 18px; color: var(--muted); margin-bottom: 32px;
+      padding-left: 68px;
     }
 
-    /* ─── SECTION A: 步兵地图 Pipeline ─── */
+    /* ─── FIVE-STAGE OPERATING MODEL ─── */
     .pipeline {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-      margin-bottom: 18px;
-    }
-    .pipe-node {
-      background: var(--card); border: 1px solid var(--line); padding: 24px 18px;
-      text-align: center; position: relative;
-    }
-    .pipe-node::after {
-      content: "▸";
-      position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
-      font-size: 22px; color: var(--blue); z-index: 2;
-    }
-    .pipe-node:last-child::after { content: none; }
-    .pipe-node .step-num {
-      display: inline-block; width: 32px; height: 32px; line-height: 32px;
-      border-radius: 50%; background: var(--blue); color: #fff;
-      font-size: 14px; font-weight: 900; margin-bottom: 10px;
-    }
-    .pipe-node h3 { font-size: 20px; margin-bottom: 6px; }
-    .pipe-node .tag { font-size: 13px; color: var(--blue); font-weight: 700; margin-bottom: 6px; }
-    .pipe-node .desc { font-size: 14px; color: var(--muted); }
-    .pipeline-quote {
-      text-align: center; font-size: 20px; font-weight: 800; color: var(--blue);
-      padding: 18px 0 8px; font-style: italic;
-    }
-    .pipeline-note {
-      text-align: center; font-size: 14px; color: var(--muted); margin-bottom: 44px;
-    }
-
-    /* ─── SECTION B: 战车装备 Cards ─── */
-    .arsenal {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
-      margin-bottom: 44px;
-    }
-    .arsenal-card {
-      background: var(--card); border: 1px solid var(--line);
-      border-top: 5px solid var(--blue); padding: 20px 18px; min-height: 130px;
-      position: relative;
-    }
-    .arsenal-card:nth-child(2) { border-top-color: #7c3aed; }
-    .arsenal-card:nth-child(3) { border-top-color: var(--red); }
-    .arsenal-card:nth-child(4) { border-top-color: #ea580c; }
-    .arsenal-card:nth-child(5) { border-top-color: #0891b2; }
-    .arsenal-card:nth-child(6) { border-top-color: var(--green); }
-    .arsenal-card:nth-child(7) { border-top-color: #9333ea; }
-    .arsenal-card:nth-child(8) { border-top-color: var(--gold); }
-    .arsenal-card .idx {
-      position: absolute; top: 10px; right: 12px;
-      font-size: 12px; color: var(--line); font-weight: 900;
-    }
-    .arsenal-card .badge {
-      display: inline-block; font-size: 12px; font-weight: 800; padding: 3px 10px;
-      border-radius: 3px; margin-bottom: 10px;
-      background: var(--ice); color: var(--blue);
-    }
-    .arsenal-card:nth-child(2) .badge { color: #7c3aed; }
-    .arsenal-card:nth-child(3) .badge { color: var(--red); }
-    .arsenal-card:nth-child(4) .badge { color: #ea580c; }
-    .arsenal-card:nth-child(5) .badge { color: #0891b2; }
-    .arsenal-card:nth-child(6) .badge { color: var(--green); }
-    .arsenal-card:nth-child(7) .badge { color: #9333ea; }
-    .arsenal-card:nth-child(8) .badge { color: var(--gold); }
-    .arsenal-card h4 { font-size: 17px; line-height: 1.35; margin-bottom: 4px; }
-
-    /* ─── SECTION C: 作战路径 Timeline ─── */
-    .timeline { margin-bottom: 18px; }
-    .tl-bar {
-      display: flex; align-items: stretch; gap: 0; height: 180px;
-      margin-bottom: 18px;
-    }
-    .tl-month {
-      background: var(--card); border: 1px solid var(--line); padding: 24px 20px;
-      display: flex; flex-direction: column; justify-content: center;
-      position: relative;
-    }
-    .tl-month.m1 { flex: 3.6; border-left: 6px solid var(--blue); }
-    .tl-month.m2 { flex: 3.0; border-left: 6px solid #3b82f6; }
-    .tl-month.m3 { flex: 2.4; border-left: 6px solid #60a5fa; }
-    .tl-month .mo {
-      display: inline-block; font-size: 13px; font-weight: 900; color: #fff;
-      background: var(--blue); padding: 4px 14px; border-radius: 3px;
-      align-self: flex-start; margin-bottom: 12px;
-    }
-    .tl-month.m2 .mo { background: #3b82f6; }
-    .tl-month.m3 .mo { background: #60a5fa; }
-    .tl-month .action { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
-    .tl-month .tasks { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
-    .tl-month .kw { font-size: 16px; font-style: italic; font-weight: 700; color: var(--blue); }
-    .tl-month.m2 .kw { color: #3b82f6; }
-    .tl-month.m3 .kw { color: #60a5fa; }
-    .tl-arrow {
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; color: var(--line); min-width: 20px;
-    }
-    .tl-quote {
-      text-align: center; font-size: 20px; font-weight: 800; color: var(--green);
-      padding: 8px 0; font-style: italic; margin-bottom: 6px;
-    }
-    .tl-note {
-      text-align: center; font-size: 14px; color: var(--muted); margin-bottom: 44px;
-    }
-
-    /* ─── SECTION D: 司令部 ROI ─── */
-    .roi-grid {
-      display: grid; grid-template-columns: 1fr auto 1fr; gap: 0;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
       margin-bottom: 20px;
     }
-    .roi-col {
-      background: var(--card); border: 1px solid var(--line); padding: 28px 24px;
+    .pipe-node {
+      background: var(--white); border: 1px solid var(--line); padding: 32px 20px; text-align: center;
     }
-    .roi-col.lose { border-top: 6px solid var(--red); }
-    .roi-col.win  { border-top: 6px solid var(--green); }
-    .roi-col h3 { font-size: 20px; font-weight: 900; margin-bottom: 16px; }
-    .roi-col.lose h3 { color: var(--red); }
-    .roi-col.win  h3 { color: var(--green); }
-    .roi-col .item { font-size: 15px; padding: 6px 0; color: var(--muted); }
-    .roi-col .item::before { content: "✕ "; color: var(--red); font-weight: 700; }
-    .roi-col.win .item::before { content: "✓ "; color: var(--green); }
-    .roi-col .total {
-      margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line);
-      font-size: 20px; font-weight: 900; color: var(--red);
+    .pipe-node .pn-num {
+      display: inline-block; width: 44px; height: 44px; line-height: 44px;
+      border-radius: 50%; background: var(--blue); color: #fff;
+      font-size: 18px; font-weight: 900; margin-bottom: 12px;
     }
-    .roi-col.win .total { color: var(--green); }
-    .roi-vs {
-      display: flex; align-items: center; justify-content: center;
-      width: 64px; flex-shrink: 0;
+    .pipe-node h3 { font-size: 22px; font-weight: 900; margin-bottom: 6px; }
+    .pipe-node .pn-tag { font-size: 15px; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+    .pipe-node p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+    .pipe-quote {
+      text-align: center; font-size: 24px; font-weight: 800; color: var(--blue);
+      padding: 20px 0 10px;
     }
-    .roi-vs .vs-badge {
-      width: 48px; height: 48px; border-radius: 50%;
-      background: var(--navy); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; font-weight: 900;
+    .pipe-note {
+      text-align: center; font-size: 16px; color: var(--muted); margin-bottom: 52px;
     }
-    .roi-result {
-      background: var(--navy); color: #fff; padding: 22px 28px;
-      display: flex; align-items: center; justify-content: center; gap: 18px;
-      margin-bottom: 44px;
-    }
-    .roi-result .ratio {
-      font-size: 42px; font-weight: 900; color: var(--gold); line-height: 1;
-    }
-    .roi-result .explain { font-size: 18px; color: #dfe5ea; }
 
-    /* ─── CTA FOOTER ─── */
-    .cta-band {
-      background: var(--navy); color: #fff;
-      padding: 36px 64px; text-align: center;
+    /* ─── ARROW ─── */
+    .section-arrow {
+      text-align: center; padding: 4px 0 20px;
+      font-size: 32px; color: var(--line); letter-spacing: 4px;
     }
-    .cta-band .cta-main { font-size: 26px; font-weight: 900; margin-bottom: 12px; }
-    .cta-band .cta-sub  { font-size: 18px; color: #dfe5ea; margin-bottom: 20px; }
+
+    /* ─── 8 CARDS 2x4 ─── */
+    .card-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      margin-bottom: 20px;
+    }
+    .deliver-card {
+      background: var(--white); border: 1px solid var(--line);
+      border-top: 6px solid var(--blue); padding: 24px 20px;
+    }
+    .deliver-card:nth-child(2) { border-top-color: #7c3aed; }
+    .deliver-card:nth-child(3) { border-top-color: #c4624a; }
+    .deliver-card:nth-child(4) { border-top-color: #ea580c; }
+    .deliver-card:nth-child(5) { border-top-color: #0891b2; }
+    .deliver-card:nth-child(6) { border-top-color: var(--green); }
+    .deliver-card:nth-child(7) { border-top-color: #9333ea; }
+    .deliver-card:nth-child(8) { border-top-color: var(--gold); }
+    .deliver-card .dc-num {
+      font-size: 24px; font-weight: 900; color: var(--line); margin-bottom: 10px;
+    }
+    .deliver-card h4 { font-size: 18px; font-weight: 900; margin-bottom: 8px; line-height: 1.4; }
+    .deliver-card p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+    .card-note {
+      text-align: center; font-size: 20px; font-weight: 800; color: var(--blue);
+      padding: 14px 0; margin-bottom: 52px;
+    }
+
+    /* ─── TIMELINE STACKED ─── */
+    .tl-col { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
+    .tl-block {
+      background: var(--white); border: 1px solid var(--line);
+      border-top: 6px solid var(--blue); padding: 28px 24px;
+    }
+    .tl-block.m2 { border-top-color: var(--green); }
+    .tl-block.m3 { border-top-color: var(--gold); }
+    .tl-block .mo {
+      display: inline-block; font-size: 18px; font-weight: 900; color: #fff;
+      padding: 8px 22px; margin-bottom: 18px;
+    }
+    .tl-block.m1 .mo { background: var(--blue); }
+    .tl-block.m2 .mo { background: var(--green); }
+    .tl-block.m3 .mo { background: var(--gold); }
+    .tl-block .do-label {
+      font-size: 15px; font-weight: 800; color: var(--accent); letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .tl-block .do-item {
+      font-size: 15px; color: var(--muted); line-height: 1.8; padding-left: 16px;
+      position: relative; margin-bottom: 4px;
+    }
+    .tl-block .do-item::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+    .tl-block .result {
+      margin-top: 14px; padding: 12px 16px; background: var(--ice);
+      font-size: 15px; font-weight: 700; color: var(--blue); line-height: 1.7;
+    }
+    .tl-block .deliver {
+      margin-top: 8px; font-size: 14px; color: var(--muted);
+    }
+    .tl-block .deliver strong { color: var(--ink); }
+    .tl-block .kw {
+      margin-top: 14px; font-size: 18px; font-weight: 800;
+      color: var(--blue); line-height: 1.6;
+    }
+    .tl-block.m2 .kw { color: var(--green); }
+    .tl-block.m3 .kw { color: var(--gold); }
+    .tl-quote {
+      text-align: center; font-size: 24px; font-weight: 800; color: var(--green);
+      padding: 12px 0 6px;
+    }
+    .tl-note {
+      text-align: center; font-size: 16px; color: var(--muted); margin-bottom: 52px;
+    }
+
+    /* ─── COMPARISON TABLE ─── */
+    .comp-table {
+      width: 100%; border-collapse: collapse; margin-bottom: 20px;
+      border: 1px solid var(--line);
+    }
+    .comp-table th {
+      background: var(--blue); color: #fff; font-size: 18px; font-weight: 900;
+      padding: 16px 20px; text-align: left;
+    }
+    .comp-table th:last-child { background: var(--green); }
+    .comp-table th:first-child { background: var(--ink); }
+    .comp-table td {
+      padding: 16px 20px; font-size: 16px; line-height: 1.7;
+      border-bottom: 1px solid var(--line); vertical-align: top;
+    }
+    .comp-table td:first-child { font-weight: 700; background: #fafbfc; color: var(--ink); width: 18%; }
+    .comp-table td:nth-child(2) { color: var(--muted); }
+    .comp-table td:last-child { color: var(--green); font-weight: 700; }
+    .comp-table tr:last-child td { font-weight: 900; font-size: 17px; }
+    .comp-table tr:last-child td:last-child { color: var(--blue); }
+    .comp-quote {
+      text-align: center; font-size: 24px; font-weight: 800; color: var(--blue);
+      padding: 12px 0; margin-bottom: 52px;
+    }
+
+    /* ─── TRUST ─── */
+    .trust-grid {
+      display: flex; flex-direction: column; gap: 16px;
+      margin-bottom: 52px;
+    }
+    .trust-card {
+      background: var(--white); border: 1px solid var(--line);
+      border-left: 8px solid var(--green); padding: 24px 22px;
+    }
+    .trust-card h4 { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+    .trust-card p { font-size: 16px; color: var(--muted); line-height: 1.7; }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      background: var(--blue); color: #fff;
+      padding: 48px 48px 40px; text-align: center;
+    }
+    .cta-section h2 { font-size: 32px; font-weight: 900; margin-bottom: 18px; }
+    .cta-section .cta-desc {
+      font-size: 20px; color: rgba(255,255,255,.8); line-height: 1.8;
+      margin-bottom: 32px;
+    }
     .cta-btn {
-      display: inline-block; background: var(--gold); color: var(--navy);
-      font-size: 20px; font-weight: 900; padding: 12px 36px; border-radius: 4px;
-      letter-spacing: 1px;
+      display: inline-block; background: var(--accent); color: #fff;
+      font-size: 24px; font-weight: 900; padding: 18px 52px;
+      letter-spacing: 2px; margin-bottom: 32px;
+    }
+    .qr-placeholder {
+      width: 200px; height: 200px; margin: 0 auto 20px;
+      background: rgba(255,255,255,.12); border: 2px dashed rgba(255,255,255,.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: rgba(255,255,255,.45);
     }
     .cta-foot {
-      margin-top: 28px; display: flex; justify-content: space-between;
-      font-size: 14px; color: #7a8490;
-    }
-
-    @media (max-width: 860px) {
-      .top-band, .content, .cta-band { padding-left: 22px; padding-right: 22px; }
-      h1 { font-size: 36px; }
-      .pipeline { grid-template-columns: 1fr 1fr; }
-      .pipe-node::after { content: none; }
-      .arsenal { grid-template-columns: 1fr 1fr; }
-      .tl-bar { flex-direction: column; height: auto; }
-      .tl-arrow { display: none; }
-      .roi-grid { grid-template-columns: 1fr; }
-      .roi-vs { width: 100%; padding: 10px 0; }
+      margin-top: 28px; font-size: 16px; color: rgba(255,255,255,.45);
+      display: flex; flex-direction: column; gap: 4px;
     }
   </style>
 </head>
 <body>
 <main class="sheet">
 
-  <!-- ═══ TOP BAND ═══ -->
-  <header class="top-band">
-    <div class="brand-row">
-      <span class="brand-mark">张希 · 利明智耀</span>
-      <span>年度系统陪跑</span>
+<header class="hero">
+  <div class="brand">利明智耀 · 企业新媒体经营系统</div>
+  <h1>3个月，陪企业完成一轮<br><span class="hl">新媒体经营系统共建</span></h1>
+  <div class="tagline">从断点判断、首轮验证，到流程沉淀与团队带教</div>
+</header>
+
+<div class="content">
+
+  <div class="sec-title"><span class="sec-num">01</span> 五段经营模型</div>
+  <div class="sec-sub">新媒体不是单独做内容，而是让经营任务、信任表达、内容机制、线索承接和数据复盘接起来。</div>
+
+  <div class="pipeline">
+    <div class="pipe-node">
+      <div class="pn-num">1</div>
+      <h3>经营任务</h3>
+      <div class="pn-tag">先明确为什么做</div>
+      <p>这一阶段优先服务品牌、获客、销售支持，还是客户经营。</p>
     </div>
-    <h1>年度系统陪跑<br>落地全景图</h1>
-    <p class="sub">一张作战地图，帮你3个月建起能自运转的获客部门</p>
-    <div class="tagline">我现在在哪 → 我要去哪 → 怎么去 → 有什么装备。四个问题，一张图回答。</div>
-  </header>
-
-  <div class="content">
-
-    <!-- ═══ 板块一：步兵地图 ═══ -->
-    <div class="section-title"><span class="num">01</span> 步兵地图 — 所有新媒体动作，最终指向这四个字</div>
-
-    <div class="pipeline">
-      <div class="pipe-node">
-        <div class="step-num">1</div>
-        <h3>看见</h3>
-        <div class="tag">公域获客</div>
-        <div class="desc">老板刷到我们的视频/文章</div>
-      </div>
-      <div class="pipe-node">
-        <div class="step-num">2</div>
-        <h3>找到</h3>
-        <div class="tag">搜索占位</div>
-        <div class="desc">搜"XX行业方案"时第一个看到我们</div>
-      </div>
-      <div class="pipe-node">
-        <div class="step-num">3</div>
-        <h3>进门</h3>
-        <div class="tag">漏斗承接</div>
-        <div class="desc">加微信、留电话、进社群</div>
-      </div>
-      <div class="pipe-node">
-        <div class="step-num">4</div>
-        <h3>留下</h3>
-        <div class="tag">私域运营</div>
-        <div class="desc">持续复购、转介绍，成为老客户</div>
-      </div>
+    <div class="pipe-node">
+      <div class="pn-num">2</div>
+      <h3>信任表达</h3>
+      <div class="pn-tag">明确为什么选你</div>
+      <p>让客户看懂企业是谁、服务谁、凭什么被列入选择。</p>
     </div>
-    <div class="pipeline-quote">“所有新媒体动作，最终都指向这四个字：进门、留下。”</div>
-    <div class="pipeline-note">看见 → 找到 → 进门 → 留下 — 每一步都是关键断点，断一处则全链路失效</div>
-
-    <!-- ═══ 板块二：战车装备 ═══ -->
-    <div class="section-title"><span class="num">02</span> 战车装备 — 8个交付包，覆盖从战略到执行全链路</div>
-
-    <div class="arsenal">
-      <div class="arsenal-card">
-        <div class="idx">01</div>
-        <div class="badge">做什么</div>
-        <h4>企业新媒体战略定位工作坊</h4>
-      </div>
-      <div class="arsenal-card">
-        <div class="idx">02</div>
-        <div class="badge">怎么做</div>
-        <h4>AI内容工厂SOP指令库</h4>
-      </div>
-      <div class="arsenal-card">
-        <div class="idx">03</div>
-        <div class="badge">为什么没效果</div>
-        <h4>账号断点修复清单</h4>
-      </div>
-      <div class="arsenal-card">
-        <div class="idx">04</div>
-        <div class="badge">谁来干</div>
-        <h4>内容操盘手能力模型与招聘考核表</h4>
-      </div>
-      <div class="arsenal-card">
-        <div class="idx">05</div>
-        <div class="badge">钱怎么花</div>
-        <h4>获客漏斗断点自检表与ROI测算表</h4>
-      </div>
-      <div class="arsenal-card">
-        <div class="idx">06</div>
-        <div class="badge">进门后怎么接</div>
-        <h4>私域0-72小时高转化承接SOP手册</h4>
-      </div>
-      <div class="arsenal-card">
-        <div class="idx">07</div>
-        <div class="badge">进门后怎么活</div>
-        <h4>私域社群日常运营SOP表</h4>
-      </div>
-      <div class="arsenal-card">
-        <div class="idx">08</div>
-        <div class="badge">现在怎么样</div>
-        <h4>企业新媒体健康度自检表（满分100分）</h4>
-      </div>
+    <div class="pipe-node">
+      <div class="pn-num">3</div>
+      <h3>内容机制</h3>
+      <div class="pn-tag">把业务变成内容</div>
+      <p>用客户问题、案例与专业判断形成稳定的内容来源和协作方式。</p>
     </div>
-
-    <!-- ═══ 板块三：作战路径 ═══ -->
-    <div class="section-title"><span class="num">03</span> 作战路径 — 3个月，从驻场到交钥匙</div>
-
-    <div class="timeline">
-      <div class="tl-bar">
-        <div class="tl-month m1">
-          <span class="mo">第1个月</span>
-          <div class="action">全体顾问驻场</div>
-          <div class="tasks">诊断 + 定方向 + 打地基</div>
-          <div class="kw">“先修路，别通车”</div>
-        </div>
-        <div class="tl-arrow">▸</div>
-        <div class="tl-month m2">
-          <span class="mo">第2个月</span>
-          <div class="action">顾问带教</div>
-          <div class="tasks">建工厂 + 跑闭环</div>
-          <div class="kw">“先把最小闭环跑通”</div>
-        </div>
-        <div class="tl-arrow">▸</div>
-        <div class="tl-month m3">
-          <span class="mo">第3个月</span>
-          <div class="action">顾问退出日常</div>
-          <div class="tasks">放手 + 复盘 + 交钥匙</div>
-          <div class="kw">“把能力长在团队身上”</div>
-        </div>
-      </div>
+    <div class="pipe-node">
+      <div class="pn-num">4</div>
+      <h3>线索承接</h3>
+      <div class="pn-tag">让客户有人接</div>
+      <p>记录来路、问题、责任人和下一步，让内容与销售不再断开。</p>
     </div>
-    <div class="tl-quote">“3个月后，你得到的不是一个顾问，而是一个能自己转的获客部门。”</div>
-    <div class="tl-note">驻场期（最重） → 带教期（辅助） → 放手期（轻量） — 能力逐步长在团队身上</div>
-
-    <!-- ═══ 板块四：司令部 ═══ -->
-    <div class="section-title"><span class="num">04</span> 司令部 — 10万/年，到底买到了什么？</div>
-
-    <div class="roi-grid">
-      <div class="roi-col lose">
-        <h3>你自己干（1年）</h3>
-        <div class="item">招人：1年 × 12万</div>
-        <div class="item">投流试错：30万</div>
-        <div class="item">无效SOP：5万</div>
-        <div class="item">时间成本：1年</div>
-        <div class="item">试错成本：无数次</div>
-        <div class="total">合计 47万+ + 无数隐性成本</div>
-      </div>
-      <div class="roi-vs"><div class="vs-badge">VS</div></div>
-      <div class="roi-col win">
-        <h3>找张希干（1年）</h3>
-        <div class="item">系统陪跑：10万</div>
-        <div class="item">3个月建系统</div>
-        <div class="item">9个月用它生钱</div>
-        <div class="item">团队自有能力</div>
-        <div class="item">可复用SOP资产</div>
-        <div class="total">10万系统陪跑费</div>
-      </div>
+    <div class="pipe-node">
+      <div class="pn-num">5</div>
+      <h3>数据复盘</h3>
+      <div class="pn-tag">用事实决定下一步</div>
+      <p>根据内容反馈、线索问题和协作记录，决定保留什么、调整什么。</p>
     </div>
-    <div class="roi-result">
-      <span class="ratio">1 : 4.7</span>
-      <span class="explain">投入产出比 · 前3个月把系统建好，后9个月用它生钱</span>
-    </div>
+  </div>
+  <div class="pipe-quote">“企业新媒体真正要搭的，不是几个账号，而是一条能持续验证和迭代的经营链路。”</div>
+  <div class="pipe-note">经营任务 → 信任表达 → 内容机制 → 线索承接 → 数据复盘。先找到影响当前业务的断点，再决定从哪里启动。</div>
 
+  <div class="section-arrow">↓</div>
+
+  <div class="sec-title"><span class="sec-num">02</span> 8项核心共建成果</div>
+  <div class="sec-sub">10万元购买的不是视频数量，而是一轮系统诊断、业务验证与团队能力转移。</div>
+
+  <div class="card-grid">
+    <div class="deliver-card">
+      <div class="dc-num">1</div>
+      <h4>经营任务与断点诊断</h4>
+      <p>先看业务、团队、内容与承接现状，判断最影响当前目标的问题在哪里。</p>
+    </div>
+    <div class="deliver-card">
+      <div class="dc-num">2</div>
+      <h4>企业表达与信任结构</h4>
+      <p>明确企业是谁、服务谁、凭什么被选择，以及需要持续证明什么。</p>
+    </div>
+    <div class="deliver-card">
+      <div class="dc-num">3</div>
+      <h4>账号角色与内容样板</h4>
+      <p>确定不同账号承担的任务，并完成首轮可执行的内容方向和样板。</p>
+    </div>
+    <div class="deliver-card">
+      <div class="dc-num">4</div>
+      <h4>客户问题与选题资产库</h4>
+      <p>把客户问题、销售反馈、企业案例和专业判断变成可持续调用的选题资产。</p>
+    </div>
+    <div class="deliver-card">
+      <div class="dc-num">5</div>
+      <h4>内容生产协同机制</h4>
+      <p>明确谁提供信息、谁策划、谁生产、谁审核，让内容不再只靠一个人推动。</p>
+    </div>
+    <div class="deliver-card">
+      <div class="dc-num">6</div>
+      <h4>线索记录与销售承接建议</h4>
+      <p>梳理线索入口、记录字段和跟进节点，让销售知道客户看过什么、关心什么。</p>
+    </div>
+    <div class="deliver-card">
+      <div class="dc-num">7</div>
+      <h4>数据记录与复盘看板</h4>
+      <p>建立与当前阶段相匹配的指标，看到哪些内容和动作产生了有效反馈。</p>
+    </div>
+    <div class="deliver-card">
+      <div class="dc-num">8</div>
+      <h4>团队带教与90天迭代路线</h4>
+      <p>通过共同实战完成方法移交，并明确项目结束后的下一轮优化重点。</p>
+    </div>
+  </div>
+  <div class="card-note">“交付不止是文件，而是团队共同跑过一轮后留下来的判断、方法和工作机制。”</div>
+
+  <div class="section-arrow">↓</div>
+
+  <div class="sec-title"><span class="sec-num">03</span> 3个月系统共建时间轴</div>
+  <div class="sec-sub">每个月都有明确任务和阶段成果，但不把播放量、询盘量和成交额包装成确定承诺。</div>
+
+  <div class="tl-col">
+    <div class="tl-block m1">
+      <div class="mo">第1个月 · 看清现状</div>
+      <div class="do-label">诊断与定优先级</div>
+      <div class="do-item">访谈创始人、业务、销售与新媒体团队</div>
+      <div class="do-item">梳理现有账号、内容、客户路径与协作方式</div>
+      <div class="do-item">确认当前最值得验证的2—3个关键断点</div>
+      <div class="result">阶段成果：断点判断、表达方向和首轮启动方案</div>
+      <div class="deliver">主要形成：<strong>经营任务、信任结构、账号角色与内容方向</strong></div>
+      <div class="kw">“先确定哪里最影响业务，再决定先改什么。”</div>
+    </div>
+    <div class="tl-block m2">
+      <div class="mo">第2个月 · 跑首轮验证</div>
+      <div class="do-label">共同实战</div>
+      <div class="do-item">围绕重点客户问题生产并发布首轮内容</div>
+      <div class="do-item">记录有效互动、咨询和销售端真实反馈</div>
+      <div class="do-item">通过周复盘调整表达、选题和承接动作</div>
+      <div class="result">阶段成果：拿到第一轮真实反馈，知道哪些判断成立、哪些需要调整</div>
+      <div class="deliver">主要形成：<strong>内容样板、协同流程、线索记录与复盘机制</strong></div>
+      <div class="kw">“验证的目的不是证明方案正确，而是尽快发现下一步怎么改。”</div>
+    </div>
+    <div class="tl-block m3">
+      <div class="mo">第3个月 · 沉淀机制</div>
+      <div class="do-label">复盘与能力移交</div>
+      <div class="do-item">复盘三个月的数据、内容和协作问题</div>
+      <div class="do-item">整理已验证的方法、流程、模板和资产</div>
+      <div class="do-item">带团队完成一次独立策划与复盘</div>
+      <div class="result">阶段成果：团队知道接下来怎么持续执行、判断问题和迭代</div>
+      <div class="deliver">主要形成：<strong>团队操作机制、项目复盘与下一轮90天路线</strong></div>
+      <div class="kw">“顾问可以退出，但企业要留下继续判断和迭代的能力。”</div>
+    </div>
+  </div>
+  <div class="tl-quote">“3个月不是替企业完成所有新媒体工作，而是共同完成一次从判断、验证到沉淀的完整循环。”</div>
+  <div class="tl-note">顾问负责诊断、设计与带教，企业负责提供真实业务信息并组织团队执行。双方共同对过程质量和验证完整性负责。</div>
+
+  <div class="section-arrow">↓</div>
+
+  <div class="sec-title"><span class="sec-num">04</span> 10万元具体买什么</div>
+  <div class="sec-sub">不是购买确定流量和成交，而是缩短判断与验证路径，把一次项目变成企业自己的能力。</div>
+
+  <table class="comp-table">
+    <thead>
+      <tr><th>对比项</th><th>零散推进</th><th>利明智耀3个月系统共建</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>判断方式</td><td>看到什么学什么，问题很多却不知道先改哪里</td><td>从业务目标出发，先定位最影响当前结果的断点</td></tr>
+      <tr><td>执行方式</td><td>内容、运营和销售各做各的，反馈难以回流</td><td>围绕同一任务完成内容、承接与复盘的首轮协同</td></tr>
+      <tr><td>团队能力</td><td>依赖老板、外包或个别能人持续推动</td><td>在共同实战中留下工具、流程与判断方法</td></tr>
+      <tr><td>项目结束</td><td>做过一批内容，但下一步仍然依赖感觉</td><td>形成可复盘的阶段事实和下一轮90天迭代路线</td></tr>
+    </tbody>
+  </table>
+  <div class="comp-quote">“这10万元购买的，是一轮系统共建，以及企业以后继续优化新媒体的底层能力。”</div>
+
+  <div class="section-arrow">↓</div>
+
+  <div class="sec-title"><span class="sec-num">05</span> 项目合作原则</div>
+  <div class="sec-sub">不承诺不可控的流量和成交，承诺把职责、过程与交付做清楚。</div>
+
+  <div class="trust-grid">
+    <div class="trust-card">
+      <h4>先判断是否适合合作</h4>
+      <p>正式合作前先做初步沟通；确认企业有真实业务、组织配合和执行条件后，再进入付费深度诊断。</p>
+    </div>
+    <div class="trust-card">
+      <h4>过程和边界清晰可见</h4>
+      <p>项目开始前确认范围、双方职责和阶段成果，过程中按固定节奏复盘，不用模糊感受判断进度。</p>
+    </div>
+    <div class="trust-card">
+      <h4>项目成果完整移交</h4>
+      <p>已形成的判断、模板、流程、数据和迭代建议统一归档，让企业能继续执行，而不是顾问离场就断掉。</p>
+    </div>
   </div>
 
-  <!-- ═══ CTA ═══ -->
-  <footer class="cta-band">
-    <div class="cta-main">别再碎片化做新媒体了。我花3个月帮你建一台「获客机器」。</div>
-    <div class="cta-sub">照着走，你的团队也能跑通。</div>
-    <div class="cta-btn">私信回复【陪跑】获取全景图</div>
-    <div class="cta-foot">
-      <span>张希 · 利明智耀</span>
-      <span>年度系统陪跑 · 落地全景图</span>
-    </div>
-    <div style="margin-top:20px;padding-top:16px;border-top:1px solid #3a4550;display:flex;gap:20px;justify-content:center;">
-      <a href="selfcheck.html" style="color:#7a8490;font-size:13px;text-decoration:none;" onmouseenter="this.style.color='#d4a03f'" onmouseleave="this.style.color='#7a8490'">← 自检表</a>
-      <a href="sop-handbook.html" style="color:#7a8490;font-size:13px;text-decoration:none;" onmouseenter="this.style.color='#5dae8b'" onmouseleave="this.style.color='#7a8490'">SOP手册 →</a>
-    </div>
-  </footer>
+</div>
+
+<footer class="cta-section">
+  <h2>先判断，你的企业是否适合现在启动</h2>
+  <p class="cta-desc">
+    如果企业已经有新媒体团队，或准备认真配置团队，<br>
+    私信回复<strong>【共建】</strong>，并告诉我：行业、团队现状和当前最困扰的问题。
+  </p>
+  <div class="cta-btn">先看边界，再做初步判断</div>
+  <div class="qr-placeholder">二维码位置</div>
+  <div class="cta-foot">
+    <span>利明智耀 — 企业新媒体经营系统策划与共建</span>
+    <span>企业新媒体经营系统 · 3个月共建全景图</span>
+  </div>
+</footer>
 
 </main>
 </body>
