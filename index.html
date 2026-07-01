@@ -16,7 +16,7 @@ h1,h2,h3,p,.status,.summary{text-wrap:balance;line-break:strict}
 .hero{text-align:center;padding:48px 0 34px}
 .badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:4px 14px;font-size:11px;letter-spacing:.18em;margin-bottom:18px}
 .hero h1{font-family:"Songti SC","STSong",serif;font-size:42px;line-height:1.16;margin-bottom:14px}
-.hero p{color:var(--muted);max-width:560px;margin:auto;font-size:15px}
+.hero p{color:var(--muted);max-width:560px;margin:auto;font-size:15px}.hero .byline{margin-top:12px;color:var(--gold);font-size:13px;font-weight:700}.access-note{margin-top:14px;padding:11px 14px;border:1px dashed var(--line);color:var(--muted);font-size:12px;text-align:center}.result-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.result-help{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
 .rule{background:#211e1a;border:1px solid var(--line);padding:18px 20px;margin-bottom:28px}
 .rule strong{color:var(--gold)}.rule p{font-size:13px;color:var(--muted);margin-top:6px}
 .legend{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap}
@@ -51,13 +51,16 @@ button{background:var(--gold);border:0;color:#1c1a18;font-weight:900;padding:10p
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><b>张希 · 利明智耀</b><span>企业新媒体经营系统</span></div>
+  <div class="top"><b>利明智耀</b><span>企业新媒体断点自检</span></div>
 
   <header class="hero">
     <div class="badge">DIAGNOSTIC TOOL</div>
     <h1>企业新媒体<br>断点自检表</h1>
     <p>不测一个看似精确的总分，只根据事实判断：你当前最值得先处理的断点在哪里。</p>
+    <p class="byline">张希主理 · 基于100+家企业咨询、诊断与项目观察</p>
   </header>
+
+  <div class="access-note">微信内打开如提示“继续访问”，点击即可。页面无需登录，不采集手机号或微信信息。</div>
 
   <section class="rule">
     <strong>请老板、新媒体负责人和销售负责人分别填写。</strong>
@@ -106,6 +109,8 @@ button{background:var(--gold);border:0;color:#1c1a18;font-weight:900;padding:10p
     <p class="summary">这里不做总分排名。请优先看“尚未形成”最多的维度，再结合当前经营任务决定从哪里启动。</p>
     <div class="result-grid" id="resultGrid"></div>
     <div class="priority" id="priority"></div>
+    <div class="result-actions"><button type="button" onclick="copyResult()">复制我的自检结果</button></div>
+    <p class="result-help">也可以直接截图本页。返回微信后，请补充“行业＋团队现状”一起发给张希。</p>
   </section>
 
   <section class="cta">
@@ -116,9 +121,10 @@ button{background:var(--gold);border:0;color:#1c1a18;font-weight:900;padding:10p
     <a href="panorama.html" style="color:var(--blue);text-decoration:none;">查看3个月共建全景图 →</a>
     <a href="sop-handbook.html" style="color:var(--green);text-decoration:none;">查看线索承接规范 →</a>
   </div>
-  <p class="note">近20家企业诊断与项目观察 · 先看事实，再下判断</p>
+  <p class="note">张希主理 · 基于100+家企业咨询、诊断与项目观察</p>
 </div>
-<script>
+<script>var latestResultText="";
+
 var questions = Array.from(document.querySelectorAll(".question"));
 questions.forEach(function(q){
   var box=q.querySelector(".options");
@@ -153,9 +159,21 @@ document.getElementById("resultBtn").addEventListener("click",function(){
   var max=Math.max.apply(null,data.map(function(d){return d.missing}));
   var top=data.filter(function(d){return d.missing===max}).map(function(d){return d.name}).join("、");
   document.getElementById("priority").innerHTML="<b>优先关注：</b>"+top+"。这只是断点分布，不等于最终优先级；还要结合业务周期、资源和当前目标判断。";
+  latestResultText="【企业新媒体断点自检结果】\n行业：请填写\n团队现状：请填写\n"+data.map(function(d){return d.name+"：尚未形成"+d.missing+"项，部分形成"+d.partial+"项";}).join("\n")+"\n优先关注："+top+"\n希望张希帮助判断的问题：请填写";
   document.getElementById("result").classList.add("show");
   document.getElementById("result").scrollIntoView({behavior:"smooth"});
 });
+function copyResult(){
+  if(!latestResultText){alert("请先完成16项检查并点击“查看断点”。");return}
+  function done(){alert("结果已复制。返回微信粘贴后，请补充行业和团队现状。")}
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(latestResultText).then(done).catch(function(){fallbackCopy(latestResultText,done)});
+  }else{fallbackCopy(latestResultText,done)}
+}
+function fallbackCopy(text,callback){
+  var area=document.createElement("textarea");area.value=text;area.style.position="fixed";area.style.opacity="0";
+  document.body.appendChild(area);area.focus();area.select();document.execCommand("copy");area.remove();callback();
+}
 </script>
 </body>
 </html>
